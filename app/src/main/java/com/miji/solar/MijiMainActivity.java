@@ -1,5 +1,6 @@
 package com.miji.solar;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.miji.solar.ui.main.SectionsPagerAdapter;
 import com.miji.solar.databinding.ActivityMijiMainBinding;
@@ -23,6 +26,14 @@ public class MijiMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.custom));
+        }
 
         binding = ActivityMijiMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -32,8 +43,8 @@ public class MijiMainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = binding.fab;
-
+        //FloatingActionButton fab = binding.fab;
+        /**
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,5 +52,6 @@ public class MijiMainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        **/
     }
 }

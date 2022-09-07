@@ -32,7 +32,7 @@
             android:name=".MijiMainActivity"
             android:exported="false"
             android:label="@string/title_activity_miji_main"
-            android:theme="@style/Theme.MIJIEnertechSolarApplication.NoActionBar" />
+            android:theme="@style/NoTitleBar" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
