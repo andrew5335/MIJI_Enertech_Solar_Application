@@ -1,14 +1,20 @@
 package com.miji.solar.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.miji.solar.MainActivity;
+import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 
 /**
@@ -16,7 +22,7 @@ import com.miji.solar.R;
  * Use the {@link TabFragment1#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment1 extends Fragment {
+public class TabFragment1 extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +32,10 @@ public class TabFragment1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private MijiMainActivity mijiMain;
+
+    private String sendRefresh = "@";
 
     public TabFragment1() {
         // Required empty public constructor
@@ -56,12 +66,30 @@ public class TabFragment1 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab1, container, false);
+        View root = inflater.inflate(R.layout.fragment_tab1, container, false);
+        mijiMain = (MijiMainActivity) getActivity();
+        LinearLayout frag1Linear = root.findViewById(R.id.frag1linear);
+        Button refresh = root.findViewById(R.id.refresh);
+        frag1Linear.setOnClickListener(this);
+        refresh.setOnClickListener(this);
+
+        return root;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.refresh:
+                //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
+                mijiMain.sendData2(sendRefresh);
+                Log.e("miji", "button click");
+        }
     }
 }

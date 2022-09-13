@@ -51,6 +51,7 @@
             android:name=".client.BluetoothSerialClient$BluetoothUpActivity"
             android:configChanges="orientation|screenSize|keyboard"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service android:name=".service.BluetoothLeService" android:enabled="true" />
     </application>
 
 </manifest>

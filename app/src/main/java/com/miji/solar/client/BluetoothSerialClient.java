@@ -24,7 +24,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BluetoothSerialClient {
 
 
-    static final private String SERIAL_UUID = "00001101-0000-1000-8000-00805F9B34FB";
+    //static final private String SERIAL_UUID = "00001101-0000-1000-8000-00805F9B34FB";
+    static final private String SERIAL_UUID = "00002902-0000-1000-8000-00805F9B34FB";
     static private BluetoothSerialClient sThis = null;
 
     private BluetoothAdapter mBluetoothAdapter;

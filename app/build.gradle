@@ -43,5 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
-    //implementation 'io.github.ParkSangGwon:tedpermission:3.3.0'
+    implementation 'com.github.Ficat:EasyBle:v2.0.2'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
