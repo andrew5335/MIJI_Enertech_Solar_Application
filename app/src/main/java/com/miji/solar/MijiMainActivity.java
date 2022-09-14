@@ -467,6 +467,7 @@ public class MijiMainActivity extends AppCompatActivity {
                             }
                         }
                         //data_view.setText(ddd);
+                        frag4.setChart(ddd);
                     } else {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
@@ -475,6 +476,7 @@ public class MijiMainActivity extends AppCompatActivity {
                     if(null != str && !"".equals(str) && 0 < str.length()) {
                         // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
                         frag1.changeStatus(str);
+                        frag2.onCheckChange(str);
                     }
 
                     if (str.startsWith("$")) {
