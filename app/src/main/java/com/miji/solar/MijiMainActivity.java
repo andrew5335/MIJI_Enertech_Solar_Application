@@ -18,47 +18,36 @@ import android.bluetooth.BluetoothGattService;
 
 import com.ficat.easyble.BleDevice;
 import com.ficat.easyble.BleManager;
-import com.ficat.easyble.gatt.bean.CharacteristicInfo;
-import com.ficat.easyble.gatt.bean.ServiceInfo;
-import com.ficat.easyble.gatt.callback.BleConnectCallback;
-import com.ficat.easyble.gatt.callback.BleNotifyCallback;
-import com.ficat.easyble.gatt.callback.BleReadCallback;
-import com.ficat.easyble.gatt.callback.BleWriteCallback;
 import com.ficat.easyble.scan.BleScanCallback;
-import com.ficat.easyble.gatt.BleGatt;
-import com.ficat.easyble.gatt.BleGattImpl;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
-import android.os.ParcelUuid;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.os.IBinder;
 
+import com.miji.solar.fragment.TabFragment1;
+import com.miji.solar.fragment.TabFragment2;
+import com.miji.solar.fragment.TabFragment3;
+import com.miji.solar.fragment.TabFragment4;
 import com.miji.solar.ui.main.SectionsPagerAdapter;
 import com.miji.solar.databinding.ActivityMijiMainBinding;
-import com.miji.solar.utils.ByteUtils;
 import com.miji.solar.service.BluetoothLeService;
 import com.miji.solar.attribute.SampleGattAttributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class MijiMainActivity extends AppCompatActivity {
 
@@ -79,21 +68,9 @@ public class MijiMainActivity extends AppCompatActivity {
     public String TAG = "miji";
     public boolean mConnected = false;
 
-    String ret$1;
-    String ret$2;
-    String ret$3;
-    String ret$4;
-    String ret$5;
-    String ret1;
-    String ret2;
-    String ret3;
-    String ret4;
-    String ret5;
-    String reta1;
-    String reta2;
-    String reta3;
-    String reta4;
-    String reta5;
+    String ret$1, ret$2, ret$3,ret$4, ret$5;
+    String ret1, ret2, ret3, ret4, ret5;
+    String reta1, reta2, reta3, reta4, reta5;
     String ddd = "";
     byte[] sendByte = new byte[20];
     char[] send_arr = {'\\', '0', '/', '0', '/', '0', '/', '0', '/', '0', '/', '0', 13, 10};
@@ -101,10 +78,15 @@ public class MijiMainActivity extends AppCompatActivity {
     String[] send_arr2p = {"\\", "0", "/", "1", "\r\n"};
 
     // 연동 명령어 세팅
-    String sendRefresh = "@";
+    String sendRefresh = "@";    // 블루투스 연결된 경우 데이터를 가져오기 위한 명령어
     String sendRequest = "\\";
     String sendOn = "$";
     String sendOff = "#";
+
+    private TabFragment1 frag1;
+    private TabFragment2 frag2;
+    private TabFragment3 frag3;
+    private TabFragment4 frag4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +96,10 @@ public class MijiMainActivity extends AppCompatActivity {
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
+        frag1 = new TabFragment1();
+        frag2 = new TabFragment2();
+        frag3 = new TabFragment3();
+        frag4 = new TabFragment4();
 
         // 블루투스 지원 여부 확인
         if(!BleManager.supportBle(this)) {
@@ -485,6 +471,12 @@ public class MijiMainActivity extends AppCompatActivity {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
                     }
+
+                    if(null != str && !"".equals(str) && 0 < str.length()) {
+                        // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
+                        frag1.changeStatus(str);
+                    }
+
                     if (str.startsWith("$")) {
                         Toast.makeText(getApplicationContext(), "readdata4 : " + str, Toast.LENGTH_LONG).show();
                         String[] split2 = str.split("/");

@@ -63,6 +63,254 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="SOLAR"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center"
+                android:layout_margin="15dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Voltage"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/solar_voltage"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/box_border"
+                    android:text="0000"
+                    android:textSize="16dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Ampere"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/solar_amp"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/box_border"
+                    android:text="0000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:layout_margin="15dp"
+                android:paddingLeft="25dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Watt"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/solar_watt"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/box_border"
+                    android:text="0000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="BATTERY"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:layout_margin="27dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Voltage"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/battery_voltage"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/box_border"
+                    android:text="0000"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:layout_margin="20dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Charge"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/battery_charge"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/box_border"
+                    android:text="0000"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Charging rate (%)"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="TEST"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center"
+                android:layout_margin="27dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Lamp"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/lamp_on"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="5dp"
+                    android:text="ON"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/box_border"
+                    app:backgroundTint="@color/custom" />
+
+                <Button
+                    android:id="@+id/lamp_off"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="OFF"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/box_border"
+                    app:backgroundTint="#707477"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
