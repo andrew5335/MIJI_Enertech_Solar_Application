@@ -42,6 +42,9 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
     private String sendRefresh = CommandConstants.sendRefresh;
 
+    private View root;
+    private Bundle bundle;
+
     public TabFragment1() {
         // Required empty public constructor
     }
@@ -73,13 +76,14 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        bundle = getArguments();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_tab1, container, false);
+        root = inflater.inflate(R.layout.fragment_tab1, container, false);
         mijiMain = (MijiMainActivity) getActivity();
         LinearLayout frag1Linear = root.findViewById(R.id.frag1linear);
         refresh = root.findViewById(R.id.refresh);
@@ -94,6 +98,11 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
+
+        if(null != bundle) {
+            Log.e("TEST", bundle.getString("test"));
+            changeStatus(bundle.getString("test"));
+        }
 
         return root;
     }
@@ -137,16 +146,16 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
                         // 메인 상태와 파워 상태 변경
                         if (ret$1.equals("$0")) {
-                            statusVeryGood.setImageResource(R.mipmap.m1);
+                            circleStatus.setImageResource(R.mipmap.m1);
                             statusPower.setImageResource(R.mipmap.m2);
                         } else if(ret$1.equals("$1")) {
-                            statusVeryGood.setImageResource(R.mipmap.m2);
+                            circleStatus.setImageResource(R.mipmap.m2);
                             statusPower.setImageResource(R.mipmap.m2);
                         } else if(ret$1.equals("$2")) {
-                            statusVeryGood.setImageResource(R.mipmap.m3);
+                            circleStatus.setImageResource(R.mipmap.m3);
                             statusPower.setImageResource(R.mipmap.m2);
                         } else {
-                            statusVeryGood.setImageResource(R.mipmap.m0);
+                            circleStatus.setImageResource(R.mipmap.m0);
                             statusPower.setImageResource(R.mipmap.m0);
                         }
 

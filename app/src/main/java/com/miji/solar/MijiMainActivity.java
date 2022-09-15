@@ -311,6 +311,10 @@ public class MijiMainActivity extends AppCompatActivity {
     public void sendData2(String str) {
         String str2 = TAG;
         Log.d(str2, "senddata2  " + str + "");
+        Bundle bundle = new Bundle(1);
+        bundle.putString("test", "$1/1/1/2831/97");
+        frag1.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag1, frag1).commit();
         if (this.mGattCharacteristics != null) {
             try {
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
@@ -416,6 +420,7 @@ public class MijiMainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
                 updateCommandState("");
                 sendData2(sendRefresh);
+
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 Log.d(TAG, "======= Init Setting Data ");
