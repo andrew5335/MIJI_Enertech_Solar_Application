@@ -53,6 +53,9 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
     private LineChart lineChart;
 
+    private View root;
+    private Bundle bundle;
+
     public TabFragment4() {
         // Required empty public constructor
     }
@@ -82,6 +85,8 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        bundle = getArguments();
     }
 
     @Override
@@ -98,7 +103,11 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
 
-        setChart("1");
+        //setChart("1");
+        if(null != bundle) {
+            Log.i(TAG, bundle.getString("data"));
+            setChart(bundle.getString("data"));
+        }
 
         return root;
     }

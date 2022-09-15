@@ -311,10 +311,7 @@ public class MijiMainActivity extends AppCompatActivity {
     public void sendData2(String str) {
         String str2 = TAG;
         Log.d(str2, "senddata2  " + str + "");
-        Bundle bundle = new Bundle(1);
-        bundle.putString("test", "$1/1/1/2831/97");
-        frag1.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frag1, frag1).commit();
+
         if (this.mGattCharacteristics != null) {
             try {
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
@@ -472,7 +469,11 @@ public class MijiMainActivity extends AppCompatActivity {
                             }
                         }
                         //data_view.setText(ddd);
-                        frag4.setChart(ddd);
+                        //frag4.setChart(ddd);
+                        Bundle bundle3 = new Bundle(1);
+                        bundle3.putString("data", ddd);
+                        frag3.setArguments(bundle3);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag3, frag3).commit();
                     } else {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
@@ -480,8 +481,23 @@ public class MijiMainActivity extends AppCompatActivity {
 
                     if(null != str && !"".equals(str) && 0 < str.length()) {
                         // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
-                        frag1.changeStatus(str);
-                        frag2.onCheckChange(str);
+                        //frag1.changeStatus(str);
+                        //frag2.checkChange(str);
+                        Bundle bundle = new Bundle(1);
+                        bundle.putString("data", str);
+                        frag1.setArguments(bundle);
+
+                        Bundle bundle2 = new Bundle(1);
+                        bundle2.putString("data", str);
+                        frag2.setArguments(bundle2);
+
+                        Bundle bundle4 = new Bundle(1);
+                        bundle4.putString("data", str);
+                        frag4.setArguments(bundle4);
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag1, frag1).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag2, frag2).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag4, frag4).commit();
                     }
 
                     if (str.startsWith("$")) {

@@ -43,6 +43,9 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
 
     private MijiMainActivity mijiMain;
 
+    private View root;
+    private Bundle bundle;
+
     public TabFragment2() {
         // Required empty public constructor
     }
@@ -72,6 +75,8 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        bundle = getArguments();
     }
 
     @Override
@@ -95,10 +100,15 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         lampOn.setOnClickListener(this);
         lampOff.setOnClickListener(this);
 
+        if(null != bundle) {
+            Log.i(TAG, bundle.getString("data"));
+            checkChange(bundle.getString("data"));
+        }
+
         return root;
     }
 
-    public void onCheckChange(String data) {
+    public void checkChange(String data) {
         if(null != data && !"".equals(data) && 0 < data.length()) {
             if(data.startsWith("$")) {
                 String[] dataArr = data.split("/");

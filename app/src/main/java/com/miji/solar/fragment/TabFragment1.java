@@ -100,8 +100,8 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         refresh.setOnClickListener(this);
 
         if(null != bundle) {
-            Log.e("TEST", bundle.getString("test"));
-            changeStatus(bundle.getString("test"));
+            Log.i(TAG, bundle.getString("data"));
+            changeStatus(bundle.getString("data"));
         }
 
         return root;
