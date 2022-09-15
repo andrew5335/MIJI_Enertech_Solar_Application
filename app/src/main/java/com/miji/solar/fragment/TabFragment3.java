@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.miji.solar.R;
 
@@ -31,6 +32,8 @@ public class TabFragment3 extends Fragment {
 
     private View root;
     private Bundle bundle;
+
+    private TextView sumData;
 
     public TabFragment3() {
         // Required empty public constructor
@@ -70,12 +73,21 @@ public class TabFragment3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_tab3, container, false);
+        sumData = root.findViewById(R.id.sumdata);
 
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
+            setData(bundle.getString("data"));
         }
 
         return root;
         //return inflater.inflate(R.layout.fragment_tab3, container, false);
+    }
+
+    public void setData(String data) {
+        if(null != data && !"".equals(data) && 0 < data.length()) {
+            sumData.setText("");
+            sumData.setText(data);
+        }
     }
 }

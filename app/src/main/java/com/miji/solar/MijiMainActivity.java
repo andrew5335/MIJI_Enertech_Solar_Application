@@ -35,10 +35,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.os.IBinder;
 
+import com.miji.solar.constant.CommandConstants;
 import com.miji.solar.fragment.TabFragment1;
 import com.miji.solar.fragment.TabFragment2;
 import com.miji.solar.fragment.TabFragment3;
 import com.miji.solar.fragment.TabFragment4;
+import com.miji.solar.handler.BackPressCloseHandler;
 import com.miji.solar.ui.main.SectionsPagerAdapter;
 import com.miji.solar.databinding.ActivityMijiMainBinding;
 import com.miji.solar.service.BluetoothLeService;
@@ -57,6 +59,7 @@ public class MijiMainActivity extends AppCompatActivity {
     private AlertDialog mDeviceListDialog;
     private ListView listView;
     private AlertDialog.Builder builder;
+    private ImageView bluetooth;
 
     private BleManager bleManager;
     private BleDevice mDevice;
@@ -66,6 +69,8 @@ public class MijiMainActivity extends AppCompatActivity {
     public ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<>();
     public String TAG = "miji";
     public boolean mConnected = false;
+
+    private BackPressCloseHandler backPressCloseHandler;
 
     String ret$1, ret$2, ret$3,ret$4, ret$5;
     String ret1, ret2, ret3, ret4, ret5;
@@ -77,10 +82,10 @@ public class MijiMainActivity extends AppCompatActivity {
     String[] send_arr2p = {"\\", "0", "/", "1", "\r\n"};
 
     // 연동 명령어 세팅
-    String sendRefresh = "@";    // 블루투스 연결된 경우 데이터를 가져오기 위한 명령어
-    String sendRequest = "\\";
-    String sendOn = "$";
-    String sendOff = "#";
+    String sendRefresh = CommandConstants.sendRefresh;    // 블루투스 연결된 경우 데이터를 가져오기 위한 명령어
+    String sendRequest = CommandConstants.sendRequest;
+    String sendOn = CommandConstants.sendOn;
+    String sendOff = CommandConstants.sendOff;
 
     private TabFragment1 frag1;
     private TabFragment2 frag2;
@@ -94,6 +99,8 @@ public class MijiMainActivity extends AppCompatActivity {
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+        this.backPressCloseHandler = new BackPressCloseHandler(this);
 
         frag1 = new TabFragment1();
         frag2 = new TabFragment2();
@@ -147,14 +154,18 @@ public class MijiMainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
-        ImageView bluetooth = binding.bluetooth;
+        bluetooth = binding.bluetooth;
 
         mDeviceArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_device);
 
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scanDevices();
+                if(mConnected) {
+                    mBluetoothLeService.disconnect();
+                } else {
+                    scanDevices();
+                }
             }
         });
     }
@@ -281,8 +292,6 @@ public class MijiMainActivity extends AppCompatActivity {
             if (!mBluetoothLeService.initialize()) {
                 finish();
             }
-            // Automatically connects to the device upon successful start-up initialization.
-            //mBluetoothLeService.connect(DEVICE_UUID);
         }
 
         @Override
@@ -337,8 +346,10 @@ public class MijiMainActivity extends AppCompatActivity {
                 try {
                     if (mConnected) {
                         //mImageBT.setImageResource(C0284R.mipmap.bts_on);
+                        bluetooth.setImageResource(R.mipmap.bts_on);
                     } else {
                         //mImageBT.setImageResource(C0284R.mipmap.bts_off);
+                        bluetooth.setImageResource(R.mipmap.bts_off);
                     }
                 } catch (Exception e) {
                     String access$800 = TAG;
@@ -660,4 +671,10 @@ public class MijiMainActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void onBackPressed() {
+        mBluetoothLeService.disconnect();
+        unregisterReceiver(this.mGattUpdateReceiver);
+        this.backPressCloseHandler.onBackPressed();
+    }
 }
