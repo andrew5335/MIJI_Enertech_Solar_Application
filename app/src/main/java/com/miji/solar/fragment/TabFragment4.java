@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -106,6 +107,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         //setChart("1");
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
+            Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             setChart(bundle.getString("data"));
         }
 
@@ -124,6 +126,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
+        Toast.makeText(getContext(), "tab4 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             ArrayList<Entry> chartVal = new ArrayList<Entry>();
 

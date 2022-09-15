@@ -101,6 +101,7 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
+            Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             changeStatus(bundle.getString("data"));
         }
 
@@ -122,6 +123,7 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         if(null != data && 0 < data.length()) {
             // 전달받은 데이터가 있을 경우 화면 변경 처리
             Log.e(TAG, data);
+            Toast.makeText(getContext(), "tab1 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 if(data.startsWith("$")) {
                     // 인입된 데이터가 $ 로 시작하면 화면 처리

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.miji.solar.R;
 
@@ -77,6 +78,7 @@ public class TabFragment3 extends Fragment {
 
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
+            Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             setData(bundle.getString("data"));
         }
 
@@ -85,6 +87,7 @@ public class TabFragment3 extends Fragment {
     }
 
     public void setData(String data) {
+        Toast.makeText(getContext(), "tab3 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             sumData.setText("");
             sumData.setText(data);

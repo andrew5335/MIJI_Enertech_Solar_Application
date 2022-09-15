@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
@@ -102,6 +103,7 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
+            Toast.makeText(getContext(), "tab2 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             checkChange(bundle.getString("data"));
         }
 
@@ -109,6 +111,7 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
     }
 
     public void checkChange(String data) {
+        Toast.makeText(getContext(), "tab2 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             if(data.startsWith("$")) {
                 String[] dataArr = data.split("/");
