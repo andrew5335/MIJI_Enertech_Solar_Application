@@ -335,6 +335,7 @@ public class MijiMainActivity extends AppCompatActivity {
         String str2 = TAG;
         Log.d(str2, "senddata2  " + str + "");
 
+        //tab4Frag.setChart("$1/1/1/2831/97");
         //getSupportFragmentManager().beginTransaction().replace(R.id.frag3, tab3Frag).commit();
 
         if (this.mGattCharacteristics != null) {

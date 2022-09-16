@@ -58,7 +58,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        /**
+
         binding = FragmentMijiMainBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -69,7 +69,8 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 textView.setText(s);
             }
         });
-         **/
+
+        /**
         int pos = getArguments().getInt(ARG_SECTION_NUMBER);
         View root = null;
 
@@ -82,6 +83,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         } else if(pos == 3) {
             root = inflater.inflate(R.layout.fragment_tab4, container, false);
         }
+         **/
 
         mijiMain = (MijiMainActivity) getActivity();
         refresh = root.findViewById(R.id.refresh);
@@ -99,7 +101,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //binding = null;
+        binding = null;
     }
 
     @Override

@@ -116,8 +116,6 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             changeStatus(bundle.getString("data"));
             data = bundle.getString("data");
-        } else {
-            data = savedInstanceState.getString("data");
         }
 
         return root;

@@ -103,15 +103,18 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
 
-        //setChart("1");
+        setChart("1");
+        Log.e("graph", "111");
+
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
 
             setChart(bundle.getString("data"));
         } else {
-            //setChart("1");
+            setChart("1");
         }
+
 
         return root;
     }
@@ -128,7 +131,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        Toast.makeText(getContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             ArrayList<Entry> chartVal = new ArrayList<Entry>();
 
