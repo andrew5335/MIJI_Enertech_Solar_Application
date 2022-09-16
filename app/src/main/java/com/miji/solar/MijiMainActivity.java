@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,6 +21,9 @@ import com.ficat.easyble.BleManager;
 import com.ficat.easyble.scan.BleScanCallback;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,6 +45,9 @@ import com.miji.solar.fragment.TabFragment2;
 import com.miji.solar.fragment.TabFragment3;
 import com.miji.solar.fragment.TabFragment4;
 import com.miji.solar.handler.BackPressCloseHandler;
+import com.miji.solar.model.Data;
+import com.miji.solar.model.DataView;
+import com.miji.solar.ui.main.PlaceholderFragment;
 import com.miji.solar.ui.main.SectionsPagerAdapter;
 import com.miji.solar.databinding.ActivityMijiMainBinding;
 import com.miji.solar.service.BluetoothLeService;
@@ -69,6 +76,7 @@ public class MijiMainActivity extends AppCompatActivity {
     public ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<>();
     public String TAG = "miji";
     public boolean mConnected = false;
+    private DataView dataView;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -87,10 +95,14 @@ public class MijiMainActivity extends AppCompatActivity {
     String sendOn = CommandConstants.sendOn;
     String sendOff = CommandConstants.sendOff;
 
-    private TabFragment1 frag1;
-    private TabFragment2 frag2;
-    private TabFragment3 frag3;
-    private TabFragment4 frag4;
+    private TabFragment1 tab1Frag;
+    private TabFragment2 tab2Frag;
+    private TabFragment3 tab3Frag;
+    private TabFragment4 tab4Frag;
+
+    private PlaceholderFragment placeholderFragment;
+
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +114,12 @@ public class MijiMainActivity extends AppCompatActivity {
 
         this.backPressCloseHandler = new BackPressCloseHandler(this);
 
-        frag1 = new TabFragment1();
-        frag2 = new TabFragment2();
-        frag3 = new TabFragment3();
-        frag4 = new TabFragment4();
+        tab1Frag = new TabFragment1();
+        tab2Frag = new TabFragment2();
+        tab3Frag = new TabFragment3();
+        tab4Frag = new TabFragment4();
+
+        fragmentManager = getSupportFragmentManager();
 
         // 블루투스 지원 여부 확인
         if(!BleManager.supportBle(this)) {
@@ -152,6 +166,7 @@ public class MijiMainActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         bluetooth = binding.bluetooth;
@@ -320,6 +335,8 @@ public class MijiMainActivity extends AppCompatActivity {
         String str2 = TAG;
         Log.d(str2, "senddata2  " + str + "");
 
+        //getSupportFragmentManager().beginTransaction().replace(R.id.frag3, tab3Frag).commit();
+
         if (this.mGattCharacteristics != null) {
             try {
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
@@ -327,6 +344,22 @@ public class MijiMainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 String str3 = TAG;
                 Log.d(str3, e + "");
+
+
+                Bundle bundle = new Bundle(3);
+                bundle.putString("data", "$1/1/1/2831/97");
+                bundle.putString("data2", "@3094/291/8730");
+                bundle.putString("data3", ddd);
+                tab1Frag.setArguments(bundle);
+                tab2Frag.setArguments(bundle);
+                tab3Frag.setArguments(bundle);
+                tab4Frag.setArguments(bundle);
+
+                fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
+                fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
+                fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+
             }
         }
     }
@@ -466,7 +499,6 @@ public class MijiMainActivity extends AppCompatActivity {
                         while (split.length > 0) {
                             try {
                                 StringBuilder sb = new StringBuilder();
-                                //MainActivity mainActivity = MainActivity.this;
                                 sb.append(ddd);
                                 sb.append(split[i]);
                                 ddd = sb.toString();
@@ -478,12 +510,7 @@ public class MijiMainActivity extends AppCompatActivity {
                             } catch (Exception unused3) {
                             }
                         }
-                        //data_view.setText(ddd);
-                        //frag4.setChart(ddd);
-                        Bundle bundle3 = new Bundle(1);
-                        bundle3.putString("data", ddd);
-                        frag3.setArguments(bundle3);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frag3, frag3).commit();
+
                     } else {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
@@ -491,23 +518,26 @@ public class MijiMainActivity extends AppCompatActivity {
 
                     if(null != str && !"".equals(str) && 0 < str.length()) {
                         // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
-                        //frag1.changeStatus(str);
-                        //frag2.checkChange(str);
-                        Bundle bundle = new Bundle(1);
-                        bundle.putString("data", str);
-                        frag1.setArguments(bundle);
+                        Bundle bundle = new Bundle(3);
+                        if(str.startsWith("$")) {
+                            bundle.putString("data", str);
+                        }
+                        if(str.startsWith("@")) {
+                            bundle.putString("data2", str);
+                        }
+                        if(str.startsWith("&")) {
+                            bundle.putString("data3", ddd);
+                        }
+                        tab1Frag.setArguments(bundle);
+                        tab2Frag.setArguments(bundle);
+                        tab3Frag.setArguments(bundle);
+                        tab4Frag.setArguments(bundle);
 
-                        Bundle bundle2 = new Bundle(1);
-                        bundle2.putString("data", str);
-                        frag2.setArguments(bundle2);
+                        fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
+                        fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
+                        fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                        fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
 
-                        Bundle bundle4 = new Bundle(1);
-                        bundle4.putString("data", str);
-                        frag4.setArguments(bundle4);
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frag1, frag1).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frag2, frag2).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frag4, frag4).commit();
                     }
 
                     if (str.startsWith("$")) {
@@ -674,7 +704,8 @@ public class MijiMainActivity extends AppCompatActivity {
 
     public void onBackPressed() {
         mBluetoothLeService.disconnect();
-        unregisterReceiver(this.mGattUpdateReceiver);
+        //unregisterReceiver(this.mGattUpdateReceiver);
         this.backPressCloseHandler.onBackPressed();
     }
+
 }

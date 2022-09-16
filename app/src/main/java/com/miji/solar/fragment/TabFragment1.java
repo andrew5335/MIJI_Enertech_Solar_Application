@@ -1,8 +1,12 @@
 package com.miji.solar.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,8 @@ import android.widget.Toast;
 import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
+import com.miji.solar.model.Data;
+import com.miji.solar.model.DataView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,10 +45,11 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
     private Button refresh;
 
     private MijiMainActivity mijiMain;
+    private DataView dataView;
 
     private String sendRefresh = CommandConstants.sendRefresh;
+    private String data;
 
-    private View root;
     private Bundle bundle;
 
     public TabFragment1() {
@@ -76,14 +83,19 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        bundle = getArguments();
+        if(null != savedInstanceState) {
+            bundle = savedInstanceState;
+        } else {
+            bundle = getArguments();
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_tab1, container, false);
+        View root = inflater.inflate(R.layout.fragment_tab1, container, false);
         mijiMain = (MijiMainActivity) getActivity();
         LinearLayout frag1Linear = root.findViewById(R.id.frag1linear);
         refresh = root.findViewById(R.id.refresh);
@@ -103,9 +115,18 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             changeStatus(bundle.getString("data"));
+            data = bundle.getString("data");
+        } else {
+            data = savedInstanceState.getString("data");
         }
 
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("data", data);
     }
 
     @Override
@@ -123,7 +144,7 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         if(null != data && 0 < data.length()) {
             // 전달받은 데이터가 있을 경우 화면 변경 처리
             Log.e(TAG, data);
-            Toast.makeText(getContext(), "tab1 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "tab1 data2 : " + data, Toast.LENGTH_LONG).show();
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 if(data.startsWith("$")) {
                     // 인입된 데이터가 $ 로 시작하면 화면 처리

@@ -8,17 +8,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
+import com.miji.solar.constant.CommandConstants;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TabFragment3#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment3 extends Fragment {
+public class TabFragment3 extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,12 +33,23 @@ public class TabFragment3 extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private MijiMainActivity mijiMain;
+
     private String TAG = "miji";
 
-    private View root;
     private Bundle bundle;
 
-    private TextView sumData;
+    private Button refresh;
+    private EditText sumData;
+
+    private String sendRefresh = CommandConstants.sendRefresh;
+
+    private Button saveData;
+    private Button loadData;
+
+    private String data;
+    private String data2;
+    private String data3;
 
     public TabFragment3() {
         // Required empty public constructor
@@ -73,13 +88,19 @@ public class TabFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_tab3, container, false);
-        sumData = root.findViewById(R.id.sumdata);
+        View root = inflater.inflate(R.layout.fragment_tab3, container, false);
+        mijiMain = (MijiMainActivity) getActivity();
+        LinearLayout frag1Linear = root.findViewById(R.id.frag3linear);
+        sumData = root.findViewById(R.id.sum_data);
+        loadData = root.findViewById(R.id.load_data);
+        saveData = root.findViewById(R.id.save_data);
+        refresh = root.findViewById(R.id.refresh);
 
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
-            setData(bundle.getString("data"));
+            data = bundle.getString("data3");
+            setData(data);
         }
 
         return root;
@@ -87,10 +108,21 @@ public class TabFragment3 extends Fragment {
     }
 
     public void setData(String data) {
-        Toast.makeText(getContext(), "tab3 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             sumData.setText("");
             sumData.setText(data);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.refresh:
+                //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
+                mijiMain.sendData2(sendRefresh);
+                Log.e(TAG, "refresh click");
+                break;
         }
     }
 }

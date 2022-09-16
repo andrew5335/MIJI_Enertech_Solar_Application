@@ -41,10 +41,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
     private String sendRefresh = CommandConstants.sendRefresh;
     private String sendOn = CommandConstants.sendOn;
     private String sendOff = CommandConstants.sendOff;
+    private String data;
+    private String data2;
 
     private MijiMainActivity mijiMain;
 
-    private View root;
     private Bundle bundle;
 
     public TabFragment2() {
@@ -77,7 +78,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        bundle = getArguments();
+        if(null != savedInstanceState) {
+            bundle = savedInstanceState;
+        } else {
+            bundle = getArguments();
+        }
     }
 
     @Override
@@ -86,7 +91,7 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tab2, container, false);
         mijiMain = (MijiMainActivity) getActivity();
-        LinearLayout frag1Linear = root.findViewById(R.id.frag1linear);
+        LinearLayout frag1Linear = root.findViewById(R.id.frag2linear);
         batteryVoltage = root.findViewById(R.id.battery_voltage);
         batteryCharge = root.findViewById(R.id.battery_charge);
         solarVoltage = root.findViewById(R.id.solar_voltage);
@@ -104,26 +109,30 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab2 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
-            checkChange(bundle.getString("data"));
+
+            data = bundle.getString("data");
+            data2 = bundle.getString("data2");
+
+            checkChange(data, data2);
         }
 
         return root;
     }
 
-    public void checkChange(String data) {
-        Toast.makeText(getContext(), "tab2 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+    public void checkChange(String data, String data2) {
+        Toast.makeText(getContext(), "tab2 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
-            if(data.startsWith("$")) {
+            if (data.startsWith("$")) {
                 String[] dataArr = data.split("/");
 
-                if(null != dataArr && 0 < dataArr.length) {
+                if (null != dataArr && 0 < dataArr.length) {
                     try {
                         ret$1 = dataArr[0];
                         ret$2 = dataArr[1];
                         ret$3 = dataArr[2];
                         ret$4 = dataArr[3];
                         ret$5 = dataArr[4];
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         Log.d(TAG, "e " + e);
                     }
 
@@ -133,20 +142,24 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                     ret$4 = ret$4.trim();
                     ret$5 = ret$5.trim();
 
-                    if(ret$4.length() == 4) {
+                    if (ret$4.length() == 4) {
                         batteryVoltage.setText(ret$4.substring(0, 2) + "." + ret$4.substring(2, ret$4.length()));
-                    } else if(ret$4.length() == 3) {
+                    } else if (ret$4.length() == 3) {
                         batteryVoltage.setText(ret$4.substring(0, 1) + "." + ret$4.substring(1, ret$4.length()));
-                    } else if(ret$4.length() == 2) {
+                    } else if (ret$4.length() == 2) {
                         batteryVoltage.setText("00." + ret$4);
-                    } else if(ret$4.length() == 1) {
-                        batteryVoltage.setText(("00.0" +  ret$4));
+                    } else if (ret$4.length() == 1) {
+                        batteryVoltage.setText(("00.0" + ret$4));
                     }
 
                     batteryCharge.setText(ret$5);
                 }
-            } else if(data.startsWith("@")) {
-                String[] dataArr2 = data.split("/");
+            }
+        }
+
+        if(null != data2 && !"".equals(data2) && 0 < data2.length()) {
+            if(data2.startsWith("@")) {
+                String[] dataArr2 = data2.split("/");
 
                 if(null != dataArr2 && 0 < dataArr2.length) {
                     try {
@@ -206,8 +219,6 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-        } else {
-
         }
     }
 
@@ -231,5 +242,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("data", data);
     }
 }

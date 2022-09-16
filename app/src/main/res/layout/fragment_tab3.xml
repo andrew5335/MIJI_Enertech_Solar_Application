@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:id="@+id/frag1linear"
+        android:id="@+id/frag3linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -70,8 +70,8 @@
             android:layout_margin="15dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/sumdata"
+            <EditText
+                android:id="@+id/sum_data"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
                 android:paddingLeft="5dp"
@@ -90,7 +90,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/loaddata"
+                android:id="@+id/load_data"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
@@ -100,7 +100,7 @@
                 app:backgroundTint="@color/custom"/>
 
             <Button
-                android:id="@+id/savedata"
+                android:id="@+id/save_data"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"

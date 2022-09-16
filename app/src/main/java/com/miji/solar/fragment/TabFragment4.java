@@ -54,7 +54,6 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
     private LineChart lineChart;
 
-    private View root;
     private Bundle bundle;
 
     public TabFragment4() {
@@ -96,7 +95,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_tab4, container, false);
         mijiMain = (MijiMainActivity) getActivity();
-        LinearLayout frag1Linear = root.findViewById(R.id.frag1linear);
+        LinearLayout frag1Linear = root.findViewById(R.id.frag4linear);
         refresh = root.findViewById(R.id.refresh);
         lineChart = root.findViewById(R.id.miji_chart);
         lineChart.setVisibleXRangeMaximum(5);
@@ -108,7 +107,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         if(null != bundle) {
             Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+
             setChart(bundle.getString("data"));
+        } else {
+            //setChart("1");
         }
 
         return root;
@@ -126,7 +128,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        Toast.makeText(getContext(), "tab4 data2 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             ArrayList<Entry> chartVal = new ArrayList<Entry>();
 
