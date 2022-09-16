@@ -345,7 +345,7 @@ public class MijiMainActivity extends AppCompatActivity {
                 String str3 = TAG;
                 Log.d(str3, e + "");
 
-
+                /**
                 Bundle bundle = new Bundle(3);
                 bundle.putString("data", "$1/1/1/2831/97");
                 bundle.putString("data2", "@3094/291/8730");
@@ -359,6 +359,7 @@ public class MijiMainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
                 fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
                 fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+                 **/
 
             }
         }
