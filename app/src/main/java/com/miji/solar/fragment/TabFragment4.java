@@ -107,7 +107,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         Log.e("graph", "111");
 
         if(null != bundle) {
-            Log.i(TAG, bundle.getString("data"));
+            //Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
 
             setChart(bundle.getString("data"));

@@ -78,11 +78,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        if(null != savedInstanceState) {
-            bundle = savedInstanceState;
-        } else {
+        //if(null != savedInstanceState) {
+        //    bundle = savedInstanceState;
+        //} else {
             bundle = getArguments();
-        }
+        //}
     }
 
     @Override
@@ -107,8 +107,8 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         lampOff.setOnClickListener(this);
 
         if(null != bundle) {
-            Log.i(TAG, bundle.getString("data"));
-            Toast.makeText(getContext(), "tab2 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            //Log.i(TAG, bundle.getString("data"));
+            //Toast.makeText(getContext(), "tab2 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
 
             data = bundle.getString("data");
             data2 = bundle.getString("data2");

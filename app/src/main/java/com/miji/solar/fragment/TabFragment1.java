@@ -83,11 +83,11 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        if(null != savedInstanceState) {
-            bundle = savedInstanceState;
-        } else {
+        //if(null != savedInstanceState) {
+        //    bundle = savedInstanceState;
+        //} else {
             bundle = getArguments();
-        }
+        //}
 
     }
 
@@ -112,8 +112,8 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         refresh.setOnClickListener(this);
 
         if(null != bundle) {
-            Log.i(TAG, bundle.getString("data"));
-            Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            //Log.i(TAG, bundle.getString("data"));
+            //Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             changeStatus(bundle.getString("data"));
             data = bundle.getString("data");
         }
@@ -142,7 +142,7 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         if(null != data && 0 < data.length()) {
             // 전달받은 데이터가 있을 경우 화면 변경 처리
             Log.e(TAG, data);
-            Toast.makeText(getContext(), "tab1 data2 : " + data, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "tab1 data2 : " + data, Toast.LENGTH_LONG).show();
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 if(data.startsWith("$")) {
                     // 인입된 데이터가 $ 로 시작하면 화면 처리
@@ -182,9 +182,9 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
                         // 충전 상태 변경
                         if(ret$2.equals("1")) {
-                            statusCharge.setImageResource(R.mipmap.m2);
-                        } else if(ret$2.equals("0")) {
                             statusCharge.setImageResource(R.mipmap.m0);
+                        } else if(ret$2.equals("0")) {
+                            statusCharge.setImageResource(R.mipmap.m22);
                         }
 
                         // high, log voltage 상태 변경

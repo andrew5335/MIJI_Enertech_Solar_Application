@@ -43,6 +43,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     private EditText sumData;
 
     private String sendRefresh = CommandConstants.sendRefresh;
+    private String requestData = CommandConstants.sendRequest;
 
     private Button saveData;
     private Button loadData;
@@ -97,8 +98,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         refresh = root.findViewById(R.id.refresh);
 
         if(null != bundle) {
-            Log.i(TAG, bundle.getString("data"));
-            Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            //Log.i(TAG, bundle.getString("data"));
+            //Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             data = bundle.getString("data3");
             setData(data);
         }
@@ -123,6 +124,12 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                 mijiMain.sendData2(sendRefresh);
                 Log.e(TAG, "refresh click");
                 break;
+
+            case R.id.load_data:
+                mijiMain.sendData2(requestData);
+                Log.e(TAG, "data request");
+                break;
+                
         }
     }
 }
