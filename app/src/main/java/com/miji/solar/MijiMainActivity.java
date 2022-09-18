@@ -246,9 +246,12 @@ public class MijiMainActivity extends AppCompatActivity {
             deviceList.remove(device);
             mDeviceArrayAdapter.remove(device.name + "\n" + device.address);
         }
-        deviceList.add(device);
-        mDeviceArrayAdapter.add(device.name + "\n" + device.address);
-        mDeviceArrayAdapter.notifyDataSetChanged();
+
+        if(!device.name.equals("unknown")) {
+            deviceList.add(device);
+            mDeviceArrayAdapter.add(device.name + "\n" + device.address);
+            mDeviceArrayAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -268,9 +271,11 @@ public class MijiMainActivity extends AppCompatActivity {
                 }
                 Log.e("miji", device.name + "/" + device.address);
 
-                message += "\n" + device.name + "\n" + device.address;
-                mLoadingDialog.setMessage(message);
-                addDeviceToArrayAdapter(device);
+                if(!device.name.equals("unknown")) {
+                    message += "\n" + device.name + "\n" + device.address;
+                    mLoadingDialog.setMessage(message);
+                    addDeviceToArrayAdapter(device);
+                }
             }
 
             @Override
@@ -535,10 +540,29 @@ public class MijiMainActivity extends AppCompatActivity {
                         tab3Frag.setArguments(bundle);
                         tab4Frag.setArguments(bundle);
 
-                        fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
-                        fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
-                        fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
-                        fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+                        if(tab1Frag.getView() != null) {
+                            tab1Frag.changeStatus(str);
+                        } else {
+                            fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
+                        }
+
+                        if(tab2Frag.getView() != null) {
+                            tab2Frag.checkChange(str, str);
+                        } else {
+                            fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
+                        }
+
+                        if(tab3Frag.getView() != null) {
+                            tab3Frag.setData(str);
+                        } else {
+                            fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                        }
+
+                        if(tab4Frag.getView() != null) {
+                            tab4Frag.setChart(str);
+                        } else {
+                            fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+                        }
 
                     }
 
