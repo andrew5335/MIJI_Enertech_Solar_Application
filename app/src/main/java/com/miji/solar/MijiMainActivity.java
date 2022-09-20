@@ -57,6 +57,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 메인 Activity
+ * 명령어 전송, 블루투스 연동, 데이터 수신 등 주요 기능 처리
+ */
 public class MijiMainActivity extends AppCompatActivity {
 
     private ActivityMijiMainBinding binding;
@@ -89,7 +93,7 @@ public class MijiMainActivity extends AppCompatActivity {
     String[] send_arr2 = {"\\", "0", "/", "0", "/", "0", "/", "0", "/", "0", "/", "0"};
     String[] send_arr2p = {"\\", "0", "/", "1", "\r\n"};
 
-    // 연동 명령어 세팅
+    // 연동 명령어 세팅 - 명령어는 CommandConstants 에서 관리
     String sendRefresh = CommandConstants.sendRefresh;    // 블루투스 연결된 경우 데이터를 가져오기 위한 명령어
     String sendRequest = CommandConstants.sendRequest;
     String sendOn = CommandConstants.sendOn;
@@ -112,7 +116,7 @@ public class MijiMainActivity extends AppCompatActivity {
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
-        this.backPressCloseHandler = new BackPressCloseHandler(this);
+        this.backPressCloseHandler = new BackPressCloseHandler(this);    // 뒤로가기 시 처리
 
         tab1Frag = new TabFragment1();
         tab2Frag = new TabFragment2();
@@ -127,12 +131,12 @@ public class MijiMainActivity extends AppCompatActivity {
             return;
         }
 
-        // 블루투스가 활성화 되어 있지 않을 경우 블루투스 활성화
+        // 블루투스가 활성화 되어 있지 않을 경우 블루투스 자동 활성화
         if(!BleManager.isBluetoothOn()) {
             BleManager.toggleBluetooth(true);
         }
 
-        // 블루투스 스캔 옵션 설정
+        // 블루투스 스캔 옵션 설정 - 스캔 시간 5초 설정, 시간 변경 시 scanPeriod의 값 조정
         BleManager.ScanOptions scanOptions = BleManager.ScanOptions
                 .newInstance()
                 .scanPeriod(5000)
@@ -166,13 +170,14 @@ public class MijiMainActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(3);    // 화면에 보여지는 fragment 기준 몇 개까지의 fragment를 함께 열 것인지 설정, 3인 경우 열리는 fragment 기준 앞/뒤 3개씩을 함께 처리
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         bluetooth = binding.bluetooth;
 
         mDeviceArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_device);
 
+        // 블루투스 버튼 클릭 시 처리 - 이미 연결되어 있는 경우 연결 해제 / 연결되지 않은 경우 블루투스 기기 scan
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +276,7 @@ public class MijiMainActivity extends AppCompatActivity {
                 }
                 Log.e("miji", device.name + "/" + device.address);
 
+                // 블루투스 기기명이 있을 경우에만 연결 대상 블루투스 기기 목록에 추가
                 if(!device.name.equals("unknown")) {
                     message += "\n" + device.name + "\n" + device.address;
                     mLoadingDialog.setMessage(message);
@@ -320,6 +326,10 @@ public class MijiMainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * 명령어 전송
+     * @param strArr
+     */
     public void sendData(String[] strArr) {
         String convertObjectArrayToString = convertObjectArrayToString(strArr, "");
         String str = TAG;
@@ -335,13 +345,13 @@ public class MijiMainActivity extends AppCompatActivity {
         }
     }
 
-    /* access modifiers changed from: private */
+    /**
+     * 명령어 전송
+     * @param str
+     */
     public void sendData2(String str) {
         String str2 = TAG;
         Log.d(str2, "senddata2  " + str + "");
-
-        //tab4Frag.setChart("$1/1/1/2831/97");
-        //getSupportFragmentManager().beginTransaction().replace(R.id.frag3, tab3Frag).commit();
 
         if (this.mGattCharacteristics != null) {
             try {
