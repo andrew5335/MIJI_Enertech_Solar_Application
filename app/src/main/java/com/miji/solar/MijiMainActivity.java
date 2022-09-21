@@ -327,7 +327,7 @@ public class MijiMainActivity extends AppCompatActivity {
     };
 
     /**
-     * 명령어 전송
+     * string 배열 명령어 전송
      * @param strArr
      */
     public void sendData(String[] strArr) {
@@ -346,7 +346,7 @@ public class MijiMainActivity extends AppCompatActivity {
     }
 
     /**
-     * 명령어 전송
+     * string 명령어 전송
      * @param str
      */
     public void sendData2(String str) {
@@ -361,7 +361,7 @@ public class MijiMainActivity extends AppCompatActivity {
                 String str3 = TAG;
                 Log.d(str3, e + "");
 
-                /**
+                /** test data
                 Bundle bundle = new Bundle(3);
                 bundle.putString("data", "$1/1/1/2831/97");
                 bundle.putString("data2", "@3094/291/8730");
@@ -381,6 +381,12 @@ public class MijiMainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * object 배열을 String으로 변경 처리
+     * @param objArr
+     * @param str
+     * @return
+     */
     private static String convertObjectArrayToString(Object[] objArr, String str) {
         StringBuilder sb = new StringBuilder();
         for (Object obj : objArr) {
@@ -390,16 +396,18 @@ public class MijiMainActivity extends AppCompatActivity {
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     * 연결 상태에 따른 화면 변경 처리
+     * @param str
+     */
     public void updateCommandState(String str) {
         runOnUiThread(new Runnable() {
             public void run() {
                 try {
                     if (mConnected) {
-                        //mImageBT.setImageResource(C0284R.mipmap.bts_on);
-                        bluetooth.setImageResource(R.mipmap.bts_on);
+                        bluetooth.setImageResource(R.mipmap.bts_on);    // 연결된 경우 블루투스 버튼 이미지 세팅
                     } else {
-                        //mImageBT.setImageResource(C0284R.mipmap.bts_off);
-                        bluetooth.setImageResource(R.mipmap.bts_off);
+                        bluetooth.setImageResource(R.mipmap.bts_off);    // 연결 해제된 경우 블루투스 버튼 이미지 세팅
                     }
                 } catch (Exception e) {
                     String access$800 = TAG;
@@ -445,6 +453,11 @@ public class MijiMainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * hex 변경ㅊ리
+     * @param str
+     * @return
+     */
     public static String unHex(String str) {
         String str2 = "";
         for (int i = 0; i < str.length(); i += 3) {
@@ -454,6 +467,10 @@ public class MijiMainActivity extends AppCompatActivity {
         return str2;
     }
 
+    /**
+     * IntentFilter 세팅
+     * @return
+     */
     private static IntentFilter makeGattUpdateIntentFilter() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);
@@ -463,6 +480,9 @@ public class MijiMainActivity extends AppCompatActivity {
         return intentFilter;
     }
 
+    /**
+     * Receiver 생성 및 데이터 수신 시 처리
+     */
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String str;
@@ -477,7 +497,6 @@ public class MijiMainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
                 updateCommandState("");
                 sendData2(sendRefresh);
-
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
                 Log.d(TAG, "======= Init Setting Data ");
@@ -507,10 +526,11 @@ public class MijiMainActivity extends AppCompatActivity {
                     Log.d(TAG, "======= SPP READ NOTIFY ");
                     updateCommandState("SPP READ");
                     String str2 = "" + unHex(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-                    Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
+                    // 누적 데이터 수신된 경우
                     if (str2.charAt(1) == '&') {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
-                        Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
                         String[] split = str.split("/");
                         int i = 0;
                         while (split.length > 0) {
@@ -524,13 +544,17 @@ public class MijiMainActivity extends AppCompatActivity {
                                 sb2.append("\r\n");
                                 ddd = sb2.toString();
                                 i++;
-                            } catch (Exception unused3) {
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error : " + e.toString());
                             }
                         }
 
+                        str = ddd;
+
                     } else {
+                        // 누적 데이터가 아닌 경우 줄바꿈 replace 처리
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
-                        Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
                     }
 
                     if(null != str && !"".equals(str) && 0 < str.length()) {
@@ -543,13 +567,16 @@ public class MijiMainActivity extends AppCompatActivity {
                             bundle.putString("data2", str);
                         }
                         if(str.startsWith("&")) {
-                            bundle.putString("data3", ddd);
+                            bundle.putString("data3", str);
                         }
+
                         tab1Frag.setArguments(bundle);
                         tab2Frag.setArguments(bundle);
                         tab3Frag.setArguments(bundle);
                         tab4Frag.setArguments(bundle);
 
+                        // Fragment view가 이미 생성되어 있을 경우 Fragment 내 데이터 처리용 method 호출
+                        // 생성된 Fragment view가 없으면 새로운 view로 replace하고 데이터 전달
                         if(tab1Frag.getView() != null) {
                             tab1Frag.changeStatus(str);
                         } else {
@@ -577,7 +604,7 @@ public class MijiMainActivity extends AppCompatActivity {
                     }
 
                     if (str.startsWith("$")) {
-                        Toast.makeText(getApplicationContext(), "readdata4 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata4 : " + str, Toast.LENGTH_LONG).show();
                         String[] split2 = str.split("/");
                         try {
                             ret$1 = split2[0];
@@ -738,6 +765,7 @@ public class MijiMainActivity extends AppCompatActivity {
         }
     };
 
+    // 뒤로가기 처리
     public void onBackPressed() {
         mBluetoothLeService.disconnect();
         //unregisterReceiver(this.mGattUpdateReceiver);
