@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miji.solar.MijiMainActivity;
@@ -21,6 +23,9 @@ import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
 import com.miji.solar.model.Data;
 import com.miji.solar.model.DataView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,8 +46,11 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
     private String mParam2;
     private String TAG = "miji";
     private String ret$1, ret$2, ret$3,ret$4, ret$5;
-    private CircleImageView circleStatus, statusVeryGood, statusGood, statusBad, statusPower, statusCharge, statusOverVoltage, statusLowVoltage;
-    private Button refresh;
+    private String str1, str2, str3;
+    private ImageView circleStatus, solar, battery, lamp;
+    private CircleImageView statusVeryGood, statusGood, statusBad, statusPower, statusCharge, statusOverVoltage, statusLowVoltage;
+    private ImageView refresh;
+    private TextView updateTime;
 
     private MijiMainActivity mijiMain;
     private DataView dataView;
@@ -107,6 +115,10 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         statusCharge = root.findViewById(R.id.status_charge);
         statusOverVoltage = root.findViewById(R.id.status_over_voltage);
         statusLowVoltage = root.findViewById(R.id.status_low_voltage);
+        solar = root.findViewById(R.id.solar);
+        battery = root.findViewById(R.id.battery);
+        lamp = root.findViewById(R.id.light);
+        updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
@@ -114,7 +126,7 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
             //Toast.makeText(getContext(), "tab1 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
-            changeStatus(bundle.getString("data"));
+            changeStatus(bundle.getString("data"), bundle.getString("data2"), bundle.getString("data3"));
             data = bundle.getString("data");
         }
 
@@ -133,12 +145,16 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
                 mijiMain.sendData2(sendRefresh);
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+                String now = sdf.format(date);
+                updateTime.setText("업데이트 시각 : " + now);
                 Log.e(TAG, "refresh click");
                 break;
         }
     }
 
-    public void changeStatus(String data) {
+    public void changeStatus(String data, String data2, String data3) {
         if(null != data && 0 < data.length()) {
             // 전달받은 데이터가 있을 경우 화면 변경 처리
             Log.e(TAG, data);
@@ -167,16 +183,22 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
 
                         // 메인 상태와 파워 상태 변경
                         if (ret$1.equals("$0")) {
-                            circleStatus.setImageResource(R.mipmap.m1);
-                            statusPower.setImageResource(R.mipmap.m2);
+                            circleStatus.setImageResource(R.mipmap.light_verygood);
+                            statusPower.setImageResource(R.mipmap.m1);
+                            solar.setImageResource(R.mipmap.solar_very_good);
+                            battery.setImageResource(R.mipmap.battery_verygood);
                         } else if(ret$1.equals("$1")) {
-                            circleStatus.setImageResource(R.mipmap.m2);
+                            circleStatus.setImageResource(R.mipmap.light_good);
                             statusPower.setImageResource(R.mipmap.m2);
+                            solar.setImageResource(R.mipmap.solar_good);
+                            battery.setImageResource(R.mipmap.battery_good);
                         } else if(ret$1.equals("$2")) {
-                            circleStatus.setImageResource(R.mipmap.m3);
-                            statusPower.setImageResource(R.mipmap.m2);
+                            circleStatus.setImageResource(R.mipmap.light_bad);
+                            statusPower.setImageResource(R.mipmap.m3);
+                            solar.setImageResource(R.mipmap.solar_bad);
+                            battery.setImageResource(R.mipmap.battery_bad);
                         } else {
-                            circleStatus.setImageResource(R.mipmap.m0);
+                            circleStatus.setImageResource(R.mipmap.light_bad);
                             statusPower.setImageResource(R.mipmap.m0);
                         }
 
@@ -200,6 +222,32 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
                         }
 
                      }
+                }
+            }
+
+            if(null != data2 && !"".equals(data2) && 0 < data2.length()) {
+                if(data2.startsWith("@")) {
+                    String[] dataArr = data2.split("/");
+
+                    if(null != dataArr && 0 < dataArr.length) {
+                        try {
+                            str1 = dataArr[0];
+                            str2 = dataArr[1];
+                            str2 = dataArr[2];
+                        } catch(Exception e) {
+                            Log.d(TAG, "e " + e);
+                        }
+
+                        str1 = str1.trim();
+                        str2 = str2.trim();
+                        str3 = str3.trim();
+
+                        if(str3.equals("1")) {
+                            lamp.setImageResource(R.mipmap.lamp_verygood);
+                        } else if(str3.equals("0")) {
+                            lamp.setImageResource(R.mipmap.lamp_bad);
+                        }
+                    }
                 }
             }
         } else {

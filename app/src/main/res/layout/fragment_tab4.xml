@@ -14,85 +14,184 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/container_update">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="center|center_horizontal|center_vertical">
+                android:layout_height="wrap_content"
+                android:background="#345F85"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Street Light Chart"
-                    android:textStyle="bold"
-                    android:textSize="16dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:id="@+id/updateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="업데이트 시각 : "
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <!--Button
+                        android:id="@+id/refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Refresh" /-->
+
+                    <ImageView
+                        android:id="@+id/refresh"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@mipmap/refresh" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="2"
-                android:gravity="right">
-
-                <Button
-                    android:id="@+id/refresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Refresh" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/black"/>
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/miji_chart"
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/box_border"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.471" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/container_voltage">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#25547E"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="left"
+                        android:text="발전상태 데이터 그래프"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"/>
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/miji_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        android:background="#25547E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.495"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.471" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/container_battery">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#25547E"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="left"
+                        android:text="배터리 데이터 그래프"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"/>
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/miji_chart2"
+                        android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        android:background="#25547E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.495"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.471" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="center_vertical|center"
-        android:text="http://www.mijienertech.co.kr\nA/S Tel. +82-53-653-5670"
-        android:textStyle="normal"
-        android:textSize="12dp"/>
+        android:orientation="vertical"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/container3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:background="#121325"
+            android:gravity="center_vertical|center"
+            android:text="A/S\n주식회사 미지에너텍\n Tel. +82-53-653-5670\nE-Mail. miji5670@naver.com"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:textSize="12dp"/>
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

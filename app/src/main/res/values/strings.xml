@@ -15,10 +15,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="tab_text_1">Status</string>
-    <string name="tab_text_2">Check</string>
-    <string name="tab_text_3">Data</string>
-    <string name="tab_text_4">Chart</string>
+    <string name="tab_text_1">전체상태</string>
+    <string name="tab_text_2">상세상태</string>
+    <string name="tab_text_3">누적데이터</string>
+    <string name="tab_text_4">그래프</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

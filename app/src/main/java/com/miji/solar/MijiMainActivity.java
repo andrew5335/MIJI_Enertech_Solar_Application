@@ -386,10 +386,10 @@ public class MijiMainActivity extends AppCompatActivity {
                 try {
                     if (mConnected) {
                         //mImageBT.setImageResource(C0284R.mipmap.bts_on);
-                        bluetooth.setImageResource(R.mipmap.bts_on);
+                        bluetooth.setImageResource(R.mipmap.bluetooth_on);
                     } else {
                         //mImageBT.setImageResource(C0284R.mipmap.bts_off);
-                        bluetooth.setImageResource(R.mipmap.bts_off);
+                        bluetooth.setImageResource(R.mipmap.bluetooth_off);
                     }
                 } catch (Exception e) {
                     String access$800 = TAG;
@@ -541,7 +541,7 @@ public class MijiMainActivity extends AppCompatActivity {
                         tab4Frag.setArguments(bundle);
 
                         if(tab1Frag.getView() != null) {
-                            tab1Frag.changeStatus(str);
+                            tab1Frag.changeStatus(str, str, ddd);
                         } else {
                             fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
                         }

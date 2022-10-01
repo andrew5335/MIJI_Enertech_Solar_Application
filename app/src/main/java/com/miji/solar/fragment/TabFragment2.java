@@ -10,12 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,13 +41,16 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
     private String ret$1, ret$2, ret$3,ret$4, ret$5;
     private String reta1, reta2, reta3, reta4, reta5;
     private EditText batteryVoltage, batteryCharge, solarVoltage, solarAmp, solarWatt;
-    private Button lampOn, lampOff, refresh;
+    private Button lampOn, lampOff, lampTest;
+    private ImageView refresh;
 
     private String sendRefresh = CommandConstants.sendRefresh;
     private String sendOn = CommandConstants.sendOn;
     private String sendOff = CommandConstants.sendOff;
+    private String sendTest = CommandConstants.sendTest;
     private String data;
     private String data2;
+    private TextView updateTime;
 
     private MijiMainActivity mijiMain;
 
@@ -99,12 +107,15 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         solarWatt = root.findViewById(R.id.solar_watt);
         lampOn = root.findViewById(R.id.lamp_on);
         lampOff = root.findViewById(R.id.lamp_off);
+        lampTest = root.findViewById(R.id.lamp_test);
         refresh = root.findViewById(R.id.refresh);
+        updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
         lampOn.setOnClickListener(this);
         lampOff.setOnClickListener(this);
+        lampTest.setOnClickListener(this);
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
@@ -236,8 +247,17 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                 Log.e(TAG, "lamp off click");
                 break;
 
+            case R.id.lamp_test:
+                mijiMain.sendData2(sendTest);
+                Log.e(TAG, "lamp Test click");
+                break;
+
             case R.id.refresh:
                 mijiMain.sendData2(sendRefresh);
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+                String now = sdf.format(date);
+                updateTime.setText("업데이트 시각 : " + now);
                 Log.e(TAG, "refresh click");
                 break;
 

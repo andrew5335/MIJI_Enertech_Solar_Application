@@ -14,43 +14,66 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/container_update">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="center|center_horizontal|center_vertical">
+                android:layout_height="wrap_content"
+                android:background="#345F85"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Street Light Data"
-                    android:textStyle="bold"
-                    android:textSize="16dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="left|center_horizontal|center_vertical">
+
+                    <TextView
+                        android:id="@+id/updateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="업데이트 시각 : "
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:gravity="right">
+
+                    <!--Button
+                        android:id="@+id/refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Refresh" /-->
+
+                    <ImageView
+                        android:id="@+id/refresh"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@mipmap/refresh" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="2"
-                android:gravity="right">
-
-                <Button
-                    android:id="@+id/refresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Refresh" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,10 +90,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
                 android:id="@+id/sum_data"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
@@ -78,7 +102,7 @@
                 android:paddingTop="5dp"
                 android:text="Data loading..."
                 android:textSize="14dp"
-                android:background="@drawable/box_border"/>
+                android:background="@drawable/box_border_white"/>
 
         </LinearLayout>
 
@@ -86,40 +110,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="center"
+            android:gravity="right"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/load_data"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:text="Load Data"
-                android:textSize="14dp"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="15dp"
+                android:text="Data"
+                android:textSize="10dp"
                 android:background="@drawable/box_border"
-                app:backgroundTint="@color/custom"/>
+                app:backgroundTint="#051523"/>
 
             <Button
                 android:id="@+id/save_data"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:text="Save Data"
-                android:textSize="14dp"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="Download"
+                android:textSize="10dp"
                 android:background="@drawable/box_border"
-                app:backgroundTint="@color/purple_200"/>
+                app:backgroundTint="#6991B5"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="center_vertical|center"
-        android:text="http://www.mijienertech.co.kr\nA/S Tel. +82-53-653-5670"
-        android:textStyle="normal"
-        android:textSize="12dp"/>
+        android:orientation="vertical"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/container3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom"
+            android:background="#121325"
+            android:gravity="center_vertical|center"
+            android:text="A/S\n주식회사 미지에너텍\n Tel. +82-53-653-5670\nE-Mail. miji5670@naver.com"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:textSize="12dp"/>
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

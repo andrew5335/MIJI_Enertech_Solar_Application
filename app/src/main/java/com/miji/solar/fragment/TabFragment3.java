@@ -10,12 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,8 +44,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
     private Bundle bundle;
 
-    private Button refresh;
-    private EditText sumData;
+    private ImageView refresh;
+    private TextView sumData;
 
     private String sendRefresh = CommandConstants.sendRefresh;
     private String requestData = CommandConstants.sendRequest;
@@ -51,6 +56,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     private String data;
     private String data2;
     private String data3;
+
+    private TextView updateTime;
 
     public TabFragment3() {
         // Required empty public constructor
@@ -96,6 +103,11 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         loadData = root.findViewById(R.id.load_data);
         saveData = root.findViewById(R.id.save_data);
         refresh = root.findViewById(R.id.refresh);
+        updateTime = root.findViewById(R.id.updateTime);
+
+        refresh.setOnClickListener(this);
+        saveData.setOnClickListener(this);
+        loadData.setOnClickListener(this);
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
@@ -122,6 +134,10 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
                 mijiMain.sendData2(sendRefresh);
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+                String now = sdf.format(date);
+                updateTime.setText("업데이트 시각 : " + now);
                 Log.e(TAG, "refresh click");
                 break;
 

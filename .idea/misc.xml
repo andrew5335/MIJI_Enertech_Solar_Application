@@ -18,6 +18,19 @@
         <entry key="..\:/Workspace_android/MIJI_Solar_Application/app/src/main/res/layout/activity_main.xml" value="0.1703125" />
         <entry key="..\:/Workspace_android/MIJI_Solar_Application/app/src/main/res/layout/item_device.xml" value="0.18489583333333334" />
         <entry key="..\:/Workspace_android/MIJI_Solar_Application/app/src/main/res/menu/main.xml" value="0.18489583333333334" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_dark.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_leftbottom.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_lefttop.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_no.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_rightbottom.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_righttop.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/drawable/box_border_white.xml" value="0.1695" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/layout/activity_miji_main.xml" value="0.1328195829555757" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/layout/fragment_tab1.xml" value="0.1328195829555757" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/layout/fragment_tab2.xml" value="0.1328195829555757" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/layout/fragment_tab3.xml" value="0.1328195829555757" />
+        <entry key="..\:/Workspace_android/Miji_Enertech_Solar_Application/app/src/main/res/layout/fragment_tab4.xml" value="0.1328195829555757" />
       </map>
     </option>
   </component>

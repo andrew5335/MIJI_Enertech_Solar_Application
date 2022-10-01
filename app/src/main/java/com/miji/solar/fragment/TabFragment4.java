@@ -10,20 +10,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,15 +55,17 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     private String TAG = "miji";
     private String ret$1, ret$2, ret$3,ret$4, ret$5;
     private CircleImageView circleStatus, statusVeryGood, statusGood, statusBad, statusPower, statusCharge, statusOverVoltage, statusLowVoltage;
-    private Button refresh;
+    private ImageView refresh;
 
     private MijiMainActivity mijiMain;
 
     private String sendRefresh = CommandConstants.sendRefresh;
 
-    private LineChart lineChart;
+    private BarChart lineChart;
 
     private Bundle bundle;
+
+    private TextView updateTime;
 
     public TabFragment4() {
         // Required empty public constructor
@@ -99,6 +110,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         refresh = root.findViewById(R.id.refresh);
         lineChart = root.findViewById(R.id.miji_chart);
         lineChart.setVisibleXRangeMaximum(5);
+        updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
@@ -125,6 +137,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
                 mijiMain.sendData2(sendRefresh);
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+                String now = sdf.format(date);
+                updateTime.setText("업데이트 시각 : " + now);
                 Log.e(TAG, "refresh click");
                 break;
         }
@@ -133,22 +149,22 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     public void setChart(String data) {
         //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
-            ArrayList<Entry> chartVal = new ArrayList<Entry>();
+            ArrayList<BarEntry> chartVal = new ArrayList<BarEntry>();
 
             for(int i=0; i < 10; i++) {
                 float val = (float) (Math.random() * 10);
-                chartVal.add(new Entry(i, val));
+                chartVal.add(new BarEntry(i, val));
             }
 
-            LineDataSet dataSet = new LineDataSet(chartVal, "DataSet 1");
-            ArrayList<ILineDataSet> dataSetList = new ArrayList<ILineDataSet>();
+            BarDataSet dataSet = new BarDataSet(chartVal, "DataSet 1");
+            ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
             dataSetList.add(dataSet);
 
-            LineData chartData = new LineData(dataSetList);
+            BarData chartData = new BarData(dataSet);
 
-            dataSet.setColor(Color.BLACK);
-            dataSet.setCircleColor(Color.MAGENTA);
-            dataSet.setLineWidth(3);
+            dataSet.setColor(Color.CYAN);
+            //dataSet.setCircleColor(Color.MAGENTA);
+            //dataSet.setLineWidth(3);
             dataSet.setLabel("test");
 
             lineChart.setData(chartData);
