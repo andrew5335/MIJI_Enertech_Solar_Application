@@ -456,6 +456,7 @@ public class MijiMainActivity extends AppCompatActivity {
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String str;
+            String tStr1 = "", tStr2 = "", tStr3 = "", tStr4 = "", tStr5 = "", tStr6 = "", tStr7 = "";
             String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 boolean unused = mConnected = true;
@@ -527,39 +528,72 @@ public class MijiMainActivity extends AppCompatActivity {
                         // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
                         Bundle bundle = new Bundle(3);
                         if(str.startsWith("$")) {
-                            bundle.putString("data", str);
+                            tStr1 = str;
+                            bundle.putString("data", tStr1);
                         }
+
                         if(str.startsWith("@")) {
-                            bundle.putString("data2", str);
+                            tStr2 = str;
+                            bundle.putString("data2", tStr2);
                         }
+
                         if(str.startsWith("&")) {
-                            bundle.putString("data3", ddd);
+                            tStr3 = ddd;
+                            bundle.putString("data3", tStr3);
                         }
+
+                        if(str.startsWith("#")) {
+                            tStr4 = str;
+                            bundle.putString("data4", tStr4);
+                        }
+
+                        if(str.startsWith("%")) {
+                            tStr5 = str;
+                            bundle.putString("data5", tStr5);
+                        }
+
+                        if(!str.startsWith("$") && !str.startsWith("@") && !str.startsWith("&") && !str.startsWith("#") && !str.startsWith("%")) {
+                            String[] tmpArr = str.split("/");
+
+                            if(null != tmpArr && 0 < tmpArr.length) {
+                                String tmpStr1 = tmpArr[0];
+                                String tmpStr2 = tmpArr[1];
+
+                                if(tmpStr2.indexOf(".") == 1) {
+                                    tStr6 = str;
+                                    bundle.putString("data6", tStr6);
+                                } else if(tmpStr2.indexOf(".") == 2) {
+                                    tStr7 = str;
+                                    bundle.putString("data7", tStr7);
+                                }
+                            }
+                        }
+
                         tab1Frag.setArguments(bundle);
                         tab2Frag.setArguments(bundle);
                         tab3Frag.setArguments(bundle);
                         tab4Frag.setArguments(bundle);
 
                         if(tab1Frag.getView() != null) {
-                            tab1Frag.changeStatus(str, str, ddd);
+                            tab1Frag.changeStatus(tStr1, tStr2, tStr3);
                         } else {
                             fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
                         }
 
                         if(tab2Frag.getView() != null) {
-                            tab2Frag.checkChange(str, str);
+                            tab2Frag.checkChange(tStr1, tStr2, tStr4, tStr5, tStr6, tStr7);
                         } else {
                             fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
                         }
 
                         if(tab3Frag.getView() != null) {
-                            tab3Frag.setData(str);
+                            tab3Frag.setData(tStr3);
                         } else {
                             fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
                         }
 
                         if(tab4Frag.getView() != null) {
-                            tab4Frag.setChart(str);
+                            tab4Frag.setChart(tStr3);
                         } else {
                             fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
                         }

@@ -50,7 +50,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
     private String sendTest = CommandConstants.sendTest;
     private String data;
     private String data2;
-    private TextView updateTime;
+    private String data3;
+    private String data4;
+    private String data5;
+    private String data6;
+    private TextView updateTime, cell1, cell2, cell3, cell4, cell5, cell6, cell7, temperature;
 
     private MijiMainActivity mijiMain;
 
@@ -110,6 +114,14 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
         lampTest = root.findViewById(R.id.lamp_test);
         refresh = root.findViewById(R.id.refresh);
         updateTime = root.findViewById(R.id.updateTime);
+        cell1 = root.findViewById(R.id.cell1);
+        cell2 = root.findViewById(R.id.cell2);
+        cell3 = root.findViewById(R.id.cell3);
+        cell4 = root.findViewById(R.id.cell4);
+        cell5 = root.findViewById(R.id.cell5);
+        cell6 = root.findViewById(R.id.cell6);
+        cell7 = root.findViewById(R.id.cell7);
+        temperature = root.findViewById(R.id.temperature);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
@@ -123,14 +135,18 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
 
             data = bundle.getString("data");
             data2 = bundle.getString("data2");
+            data3 = bundle.getString("data4");
+            data4 = bundle.getString("data5");
+            data5 = bundle.getString("data6");
+            data6 = bundle.getString("data7");
 
-            checkChange(data, data2);
+            checkChange(data, data2, data3, data4, data5, data6);
         }
 
         return root;
     }
 
-    public void checkChange(String data, String data2) {
+    public void checkChange(String data, String data2, String data3, String data4, String data5, String data6) {
         Toast.makeText(getContext(), "tab2 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             if (data.startsWith("$")) {
@@ -229,6 +245,42 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                         solarWatt.setText("00.0" + reta3);
                     }
                 }
+            }
+        }
+
+        if(null != data3 && !"".equals(data3) && 0 < data3.length()) {
+            String[] tmpArr = data3.split("/");
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                cell1.setText(tmpArr[0]);
+                cell2.setText(tmpArr[1]);
+            }
+        }
+
+        if(null != data5 && !"".equals(data5) && 0 < data5.length()) {
+            String[] tmpArr = data5.split("/");
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                cell3.setText(tmpArr[0]);
+                cell4.setText(tmpArr[1]);
+            }
+        }
+
+        if(null != data4 && !"".equals(data4) && 0 < data4.length()) {
+            String[] tmpArr = data4.split("/");
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                cell5.setText(tmpArr[0]);
+                cell6.setText(tmpArr[1]);
+            }
+        }
+
+        if(null != data6 && !"".equals(data6) && 0 < data6.length()) {
+            String[] tmpArr = data6.split("/");
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                cell7.setText(tmpArr[0]);
+                temperature.setText(tmpArr[1]);
             }
         }
     }

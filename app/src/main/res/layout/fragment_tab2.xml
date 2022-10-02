@@ -369,6 +369,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/cell1"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -380,6 +381,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/cell2"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -391,6 +393,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/cell3"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -402,6 +405,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/cell4"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -479,6 +483,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/cell5"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -490,6 +495,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/cell6"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -501,6 +507,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/cell7"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
@@ -512,6 +519,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/temperature"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
