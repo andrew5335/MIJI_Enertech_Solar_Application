@@ -538,7 +538,7 @@ public class MijiMainActivity extends AppCompatActivity {
                         }
 
                         if(str.startsWith("&")) {
-                            tStr3 = ddd;
+                            tStr3 = str;
                             bundle.putString("data3", tStr3);
                         }
 

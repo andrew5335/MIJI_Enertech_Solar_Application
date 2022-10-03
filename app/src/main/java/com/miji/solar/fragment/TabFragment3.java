@@ -1,9 +1,13 @@
 package com.miji.solar.fragment;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,10 @@ import com.miji.solar.MijiMainActivity;
 import com.miji.solar.R;
 import com.miji.solar.constant.CommandConstants;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,8 +64,11 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     private String data;
     private String data2;
     private String data3;
+    private String dataSave;
 
     private TextView updateTime;
+
+    private static final String foldername = (Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/miji");
 
     public TabFragment3() {
         // Required empty public constructor
@@ -114,6 +125,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             //Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
             data = bundle.getString("data3");
             setData(data);
+        } else {
+            setData("");
         }
 
         return root;
@@ -123,8 +136,54 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     public void setData(String data) {
         Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
+            data = data.replaceAll("&", "");
+            String[] tmpArr = data.split("/");
+            StringBuilder sb = new StringBuilder();
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                for(int i=0; i < tmpArr.length; i++) {
+                    sb.append(i + 1 + "   ");
+                    sb.append(tmpArr[i]);
+                    sb.append("\r\n");
+                }
+            }
+            data = sb.toString();
+            dataSave = data;
+
             sumData.setText("");
             sumData.setText(data);
+            sumData.setMovementMethod(new ScrollingMovementMethod());
+            sumData.setTextColor(Color.WHITE);
+        } else {
+            data = "&001027520010~001128700031020/" +
+                    "&002027520010~002128650031022/" +
+                    "&003027260010~003128260031023/" +
+                    "&004027520010~004128650031024/" +
+                    "&005027470010~005128750031025/" +
+                    "&006027520010~001128800031028/" +
+                    "&007027470010~001128400031033/" +
+                    "&008026980010~001127570031039/" +
+                    "&009026390010~001128500031042/" +
+                    "&010027470010~001128850031043/";
+
+            data = data.replaceAll("&", "");
+            String[] tmpArr = data.split("/");
+            StringBuilder sb = new StringBuilder();
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                for(int i=0; i < tmpArr.length; i++) {
+                    sb.append(i + 1 + "   ");
+                    sb.append(tmpArr[i]);
+                    sb.append("\r\n");
+                }
+            }
+            data = sb.toString();
+            dataSave = data;
+
+            sumData.setText("");
+            sumData.setText(data);
+            sumData.setMovementMethod(new ScrollingMovementMethod());
+            sumData.setTextColor(Color.WHITE);
         }
     }
 
@@ -145,7 +204,59 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                 mijiMain.sendData2(requestData);
                 Log.e(TAG, "data request");
                 break;
+
+            case R.id.save_data:
+                saveData();
+                Log.i(TAG, "save data");
+                break;
                 
         }
+    }
+
+    public void saveData() {
+        String data = sumData.getText().toString();
+        String result = "";
+
+        if(null != data && !"".equals(data) && 0 < data.length()) {
+            result = writeData(data);
+
+            if(null != result && !"".equals(result) && 0 < result.length()) {
+                if("success".equals(result)) {
+                    Toast.makeText(getActivity(), "데이터 저장 성공", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "데이터 저장 실패", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    public String writeData(String str) {
+        String result = "fail";
+        String fileName = "";
+
+        if(null != str && !"".equals(str) && 0 < str.length()) {
+            File file = new File(foldername);
+            if(!file.exists()) {
+                file.mkdir();
+            }
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            fileName = "mijiData_" + sdf.format(date);
+
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(foldername + "/" + fileName + ".txt", true);
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+                bufferedWriter.write(str);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+                result = "success";
+            } catch(Exception e) {
+                Log.e(TAG, "Error : 파일 생성 실패" + e.toString());
+            }
+        }
+
+        return result;
     }
 }

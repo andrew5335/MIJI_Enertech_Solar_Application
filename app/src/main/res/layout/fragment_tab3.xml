@@ -97,11 +97,14 @@
             <TextView
                 android:id="@+id/sum_data"
                 android:layout_width="match_parent"
+                android:gravity="center|top"
                 android:layout_height="500dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:text="Data loading..."
-                android:textSize="14dp"
+                android:textSize="16dp"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideInset"
                 android:background="@drawable/box_border_white"/>
 
         </LinearLayout>
@@ -118,10 +121,11 @@
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="15dp"
+                android:background="@drawable/box_border"
+                android:scrollIndicators="right"
                 android:text="Data"
                 android:textSize="10dp"
-                android:background="@drawable/box_border"
-                app:backgroundTint="#051523"/>
+                app:backgroundTint="#051523" />
 
             <Button
                 android:id="@+id/save_data"

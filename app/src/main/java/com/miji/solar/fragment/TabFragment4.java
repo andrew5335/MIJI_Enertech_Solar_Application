@@ -18,12 +18,14 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.miji.solar.MijiMainActivity;
@@ -32,7 +34,10 @@ import com.miji.solar.constant.CommandConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -61,7 +66,9 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
     private String sendRefresh = CommandConstants.sendRefresh;
 
-    private BarChart lineChart;
+    private BarChart barChart, barChart2;
+    private XAxis xAxis1, xAxis2;
+    private ArrayList<String> xVals1, xVals2;
 
     private Bundle bundle;
 
@@ -108,23 +115,36 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         mijiMain = (MijiMainActivity) getActivity();
         LinearLayout frag1Linear = root.findViewById(R.id.frag4linear);
         refresh = root.findViewById(R.id.refresh);
-        lineChart = root.findViewById(R.id.miji_chart);
-        lineChart.setVisibleXRangeMaximum(5);
+
+        barChart = root.findViewById(R.id.miji_chart);
+        barChart.setVisibleXRangeMaximum(5);
+        barChart2 = root.findViewById(R.id.miji_chart2);
+        barChart2.setVisibleXRangeMaximum(5);
+
+        xAxis1 = barChart.getXAxis();
+        xAxis2 = barChart2.getXAxis();
+        xAxis1.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis1.setTextSize(7);
+        xAxis2.setTextSize(7);
+        xAxis1.setLabelCount(5);
+        xAxis2.setLabelCount(5);
+
         updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
 
-        setChart("1");
+        setChart("");
         Log.e("graph", "111");
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
             Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
 
-            setChart(bundle.getString("data"));
+            setChart(bundle.getString("data3"));
         } else {
-            setChart("1");
+            setChart("");
         }
 
 
@@ -147,30 +167,245 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
-            ArrayList<BarEntry> chartVal = new ArrayList<BarEntry>();
+            data = data.replaceAll(System.getProperty("line.separator"), "");
+            data = data.replaceAll("&", "");
+            String[] tmpArr = data.split("/");
 
-            for(int i=0; i < 10; i++) {
-                float val = (float) (Math.random() * 10);
-                chartVal.add(new BarEntry(i, val));
+            List<String> tmpList1 = new ArrayList<String>();
+            List<String> tmpList2 = new ArrayList<String>();
+
+            List<BarEntry> barList1 = new ArrayList<BarEntry>();
+            List<BarEntry> barList2 = new ArrayList<BarEntry>();
+            List<BarEntry> barList3 = new ArrayList<BarEntry>();
+
+            if(null != tmpArr && 0 < tmpArr.length) {
+                for(int i=0; i < tmpArr.length; i++) {
+                    String tmpStr = tmpArr[i];
+                    tmpList1.add(String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
+
+                    if(0 < i && i < tmpArr.length) {
+                        tmpList2.add(String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+                    }
+
+                    Log.e("mijierror333", tmpArr[i].substring(26, 28));
+                    barList3.add(new BarEntry((float) i, ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100));
+                }
+
+                if(null != tmpList1 && 0 < tmpList1.size()) {
+                    for(int i=0; i < tmpList1.size(); i++) {
+                        if(tmpList1.get(i).length() == 3) {
+                            barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1) + "." + tmpList1.get(i).substring(1, 3)) * 250));
+                        } else if(tmpList1.get(i).length() == 2) {
+                            barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                        } else if(tmpList1.get(i).length() == 1) {
+                            barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1)) * 250));
+                        }
+                    }
+                }
+
+                if(null != tmpList2 && 0 < tmpList2.size()) {
+                    barList2.add(new BarEntry(0, 0));
+                    for(int j=0; j < tmpList2.size(); j++) {
+                        /**if(0 < j && j < tmpList2.size()) {
+                         Log.e("mijierror", "mijierror : " + tmpList2.get(j));
+                         }**/
+                        if(0 < j && j < tmpList2.size()) {
+                            if (tmpList2.get(j).length() == 3) {
+                                barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1) + "." + tmpList2.get(j).substring(1, 3)) * 250));
+                            } else if (tmpList2.get(j).length() == 2) {
+                                barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                            } else if (tmpList2.get(j).length() == 1) {
+                                barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1)) * 250));
+                            }
+                        }
+                    }
+                }
+
+                xVals1 = new ArrayList<String>();
+                if(null != barList1 && 0 < barList1.size()) {
+                    for(int i=0; i < barList1.size(); i++) {
+                        xVals1.add(getDate(-i));
+                    }
+                }
+
+                xVals2 = new ArrayList<String>();
+                if(null != barList3 && 0 < barList3.size()) {
+                    for(int i=0; i < barList3.size(); i++) {
+                        xVals2.add(getDate(-i));
+                    }
+                }
+
+                BarDataSet dataSet = new BarDataSet(barList1, "발전량");
+                BarDataSet dataSet2 = new BarDataSet(barList2, "사용량");
+                BarDataSet dataSet3 = new BarDataSet(barList3, "배터리성능");
+
+                ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
+                ArrayList<BarDataSet> dataSetList2 = new ArrayList<BarDataSet>();
+
+                dataSetList.add(dataSet);
+                dataSetList.add(dataSet2);
+                dataSetList2.add(dataSet3);
+
+                BarData chartData = new BarData(dataSet);
+                chartData.addDataSet(dataSet2);
+
+                BarData chartData2 = new BarData(dataSet3);
+
+                chartData.setBarWidth(0.3f);
+                chartData2.setBarWidth(0.3f);
+
+                dataSet.setColor(Color.CYAN);
+                dataSet.setBarBorderWidth((float) 0.02);
+                dataSet2.setColor(Color.GREEN);
+                dataSet2.setBarBorderWidth((float) 0.02);
+
+                dataSet3.setColor(Color.GRAY);
+                dataSet3.setBarBorderWidth((float) 0.02);
+
+                Collections.reverse(xVals1);
+                Collections.reverse(xVals2);
+                xAxis1.setValueFormatter(new IndexAxisValueFormatter(xVals1));
+                xAxis2.setValueFormatter(new IndexAxisValueFormatter(xVals2));
+
+                barChart.setData(chartData);
+                barChart.groupBars(0.2f, 0.3f, 0.02f);
+
+                barChart2.setData(chartData2);
             }
 
-            BarDataSet dataSet = new BarDataSet(chartVal, "DataSet 1");
-            ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
-            dataSetList.add(dataSet);
-
-            BarData chartData = new BarData(dataSet);
-
-            dataSet.setColor(Color.CYAN);
-            //dataSet.setCircleColor(Color.MAGENTA);
-            //dataSet.setLineWidth(3);
-            dataSet.setLabel("test");
-
-            lineChart.setData(chartData);
-
         } else {
+            // 데이터가 없을 경우 아래 샘플 코드로 챠트 생성
+            data = "&001027520010~001128700031020/" +
+                    "&002027520010~002128650031022/" +
+                    "&003027260010~003128260031023/" +
+                    "&004027520010~004128650031024/" +
+                    "&005027470010~005128750031025/" +
+                    "&006027520010~001128800031028/" +
+                    "&007027470010~001128400031033/" +
+                    "&008026980010~001127570031039/" +
+                    "&009026390010~001128500031042/" +
+                    "&010027470010~001128850031043/";
 
+            if(null != data && !"".equals(data) && 0 < data.length()) {
+                data = data.replaceAll(System.getProperty("line.separator"), "");
+                data = data.replaceAll("&", "");
+                String[] tmpArr = data.split("/");
+
+                List<String> tmpList1 = new ArrayList<String>();
+                List<String> tmpList2 = new ArrayList<String>();
+
+                List<BarEntry> barList1 = new ArrayList<BarEntry>();
+                List<BarEntry> barList2 = new ArrayList<BarEntry>();
+                List<BarEntry> barList3 = new ArrayList<BarEntry>();
+
+                if(null != tmpArr && 0 < tmpArr.length) {
+                    for(int i=0; i < tmpArr.length; i++) {
+                        String tmpStr = tmpArr[i];
+                        tmpList1.add(String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
+
+                        if(0 < i && i < tmpArr.length) {
+                            tmpList2.add(String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+                        }
+
+                        Log.e("mijierror333", tmpArr[i].substring(26, 28));
+                        barList3.add(new BarEntry((float) i, ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100));
+                    }
+
+                    if(null != tmpList1 && 0 < tmpList1.size()) {
+                        for(int i=0; i < tmpList1.size(); i++) {
+                            if(tmpList1.get(i).length() == 3) {
+                                barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1) + "." + tmpList1.get(i).substring(1, 3)) * 250));
+                            } else if(tmpList1.get(i).length() == 2) {
+                                barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                            } else if(tmpList1.get(i).length() == 1) {
+                                barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1)) * 250));
+                            }
+                        }
+                    }
+
+                    if(null != tmpList2 && 0 < tmpList2.size()) {
+                        barList2.add(new BarEntry(0, 0));
+                        for(int j=0; j < tmpList2.size(); j++) {
+                            /**if(0 < j && j < tmpList2.size()) {
+                                Log.e("mijierror", "mijierror : " + tmpList2.get(j));
+                            }**/
+                            if(0 < j && j < tmpList2.size()) {
+                                if (tmpList2.get(j).length() == 3) {
+                                    barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1) + "." + tmpList2.get(j).substring(1, 3)) * 250));
+                                } else if (tmpList2.get(j).length() == 2) {
+                                    barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                } else if (tmpList2.get(j).length() == 1) {
+                                    barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1)) * 250));
+                                }
+                            }
+                        }
+                    }
+
+                    xVals1 = new ArrayList<String>();
+                    if(null != barList1 && 0 < barList1.size()) {
+                        for(int i=0; i < barList1.size(); i++) {
+                            xVals1.add(getDate(-i));
+                        }
+                    }
+
+                    xVals2 = new ArrayList<String>();
+                    if(null != barList3 && 0 < barList3.size()) {
+                        for(int i=0; i < barList3.size(); i++) {
+                            xVals2.add(getDate(-i));
+                        }
+                    }
+
+                    BarDataSet dataSet = new BarDataSet(barList1, "발전량");
+                    BarDataSet dataSet2 = new BarDataSet(barList2, "사용량");
+                    BarDataSet dataSet3 = new BarDataSet(barList3, "배터리성능");
+
+                    ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
+                    ArrayList<BarDataSet> dataSetList2 = new ArrayList<BarDataSet>();
+
+                    dataSetList.add(dataSet);
+                    dataSetList.add(dataSet2);
+                    dataSetList2.add(dataSet3);
+
+                    BarData chartData = new BarData(dataSet);
+                    chartData.addDataSet(dataSet2);
+
+                    BarData chartData2 = new BarData(dataSet3);
+
+                    chartData.setBarWidth(0.3f);
+                    chartData2.setBarWidth(0.3f);
+
+                    dataSet.setColor(Color.CYAN);
+                    dataSet.setBarBorderWidth((float) 0.02);
+                    dataSet2.setColor(Color.GREEN);
+                    dataSet2.setBarBorderWidth((float) 0.02);
+
+                    dataSet3.setColor(Color.GRAY);
+                    dataSet3.setBarBorderWidth((float) 0.02);
+
+                    Collections.reverse(xVals1);
+                    Collections.reverse(xVals2);
+                    xAxis1.setValueFormatter(new IndexAxisValueFormatter(xVals1));
+                    xAxis2.setValueFormatter(new IndexAxisValueFormatter(xVals2));
+
+                    barChart.setData(chartData);
+                    barChart.groupBars(0.2f, 0.3f, 0.02f);
+
+                    barChart2.setData(chartData2);
+                }
+            }
         }
+    }
+
+    public String getDate(int range) {
+        String result = "";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        cal.add(Calendar.DATE, range);
+
+        return sdf.format(cal.getTime());
     }
 }
