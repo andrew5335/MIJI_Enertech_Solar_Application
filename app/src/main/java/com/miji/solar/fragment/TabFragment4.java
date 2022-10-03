@@ -140,7 +140,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
-            Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
 
             setChart(bundle.getString("data3"));
         } else {
@@ -167,7 +167,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             data = data.replaceAll(System.getProperty("line.separator"), "");
             data = data.replaceAll("&", "");

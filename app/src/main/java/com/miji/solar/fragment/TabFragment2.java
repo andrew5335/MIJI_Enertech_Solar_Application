@@ -147,7 +147,7 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
     }
 
     public void checkChange(String data, String data2, String data3, String data4, String data5, String data6) {
-        Toast.makeText(getContext(), "tab2 data2 : " + data, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "tab2 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             if (data.startsWith("$")) {
                 String[] dataArr = data.split("/");

@@ -134,7 +134,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void setData(String data) {
-        Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             data = data.replaceAll("&", "");
             String[] tmpArr = data.split("/");

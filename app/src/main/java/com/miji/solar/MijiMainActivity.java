@@ -498,10 +498,10 @@ public class MijiMainActivity extends AppCompatActivity {
                     Log.d(TAG, "======= SPP READ NOTIFY ");
                     updateCommandState("SPP READ");
                     String str2 = "" + unHex(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-                    Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
                     if (str2.charAt(1) == '&') {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
-                        Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
                         String[] split = str.split("/");
                         int i = 0;
                         while (split.length > 0) {
@@ -521,7 +521,7 @@ public class MijiMainActivity extends AppCompatActivity {
 
                     } else {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
-                        Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
                     }
 
                     if(null != str && !"".equals(str) && 0 < str.length()) {
@@ -601,7 +601,7 @@ public class MijiMainActivity extends AppCompatActivity {
                     }
 
                     if (str.startsWith("$")) {
-                        Toast.makeText(getApplicationContext(), "readdata4 : " + str, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "readdata4 : " + str, Toast.LENGTH_LONG).show();
                         String[] split2 = str.split("/");
                         try {
                             ret$1 = split2[0];
