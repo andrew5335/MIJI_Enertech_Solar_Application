@@ -11,9 +11,11 @@
 
     <LinearLayout
         android:id="@+id/toptitle"
+        android:background="#0F2F4C"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <LinearLayout

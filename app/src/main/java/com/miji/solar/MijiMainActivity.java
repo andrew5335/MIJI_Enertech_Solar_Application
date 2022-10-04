@@ -36,6 +36,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.os.IBinder;
@@ -78,6 +79,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
     public String TAG = "miji";
     public boolean mConnected = false;
     private DataView dataView;
+    private LinearLayout topTitle;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -165,6 +167,9 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
 
         binding = ActivityMijiMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        topTitle = binding.toptitle;
+        topTitle.bringToFront();
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = binding.viewPager;
