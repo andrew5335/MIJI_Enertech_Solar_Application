@@ -10,6 +10,7 @@
     tools:context=".MijiMainActivity">
 
     <LinearLayout
+        android:id="@+id/toptitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -65,6 +66,14 @@
 
     </LinearLayout>
 
+    <ru.noties.scrollable.ScrollableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:scrollable_autoMaxScroll="false"
+        app:scrollable_maxScroll="200dp"
+        app:scrollable_friction="@integer/material_motion_duration_long_1"
+        app:scrollable_defaultCloseUp="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +81,6 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -85,7 +93,9 @@
 
     </LinearLayout>
 
-    <com.google.android.material.appbar.AppBarLayout
+    </ru.noties.scrollable.ScrollableLayout>
+
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|fill_horizontal|end"
@@ -95,7 +105,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#0F2F4C"
             android:orientation="horizontal">
 
@@ -106,11 +116,13 @@
                 android:background="#0F2F4C"
                 app:tabIndicatorColor="#ffffff"
                 app:tabIndicatorGravity="top"
-                app:tabTextColor="#ffffff" />
+                app:tabTextColor="#ffffff"
+                app:tabGravity="fill"
+                app:tabMode="scrollable"/>
 
         </LinearLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"

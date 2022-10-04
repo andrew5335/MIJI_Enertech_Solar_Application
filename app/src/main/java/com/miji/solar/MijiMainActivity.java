@@ -21,6 +21,7 @@ import com.ficat.easyble.BleManager;
 import com.ficat.easyble.scan.BleScanCallback;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -57,7 +58,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MijiMainActivity extends AppCompatActivity {
+public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ActivityMijiMainBinding binding;
     private ArrayAdapter<String> mDeviceArrayAdapter;
@@ -103,6 +104,8 @@ public class MijiMainActivity extends AppCompatActivity {
     private PlaceholderFragment placeholderFragment;
 
     private FragmentManager fragmentManager;
+
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +167,7 @@ public class MijiMainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = binding.viewPager;
+        viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setOffscreenPageLimit(3);
         TabLayout tabs = binding.tabs;
@@ -768,4 +771,18 @@ public class MijiMainActivity extends AppCompatActivity {
         this.backPressCloseHandler.onBackPressed();
     }
 
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 }
