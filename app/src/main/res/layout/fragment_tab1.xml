@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="#121325"
+                android:background="#102037"
                 android:gravity="center"
                 android:text="태양광 가로등 전문기업 (주)미지에너텍"
                 android:textSize="16dp"
@@ -57,7 +57,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#345F85"
+                    android:background="#3A5975"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -94,7 +94,7 @@
 
                         <ImageView
                             android:id="@+id/refresh"
-                            android:layout_gravity="center"
+                            android:layout_gravity="right"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             app:srcCompat="@mipmap/refresh" />
@@ -108,7 +108,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#25547E"
+                android:background="#284763"
                 android:orientation="vertical">
 
                 <TextView
@@ -285,7 +285,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#25547E"
+                android:background="#284763"
                 android:orientation="vertical">
 
                 <LinearLayout

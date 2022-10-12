@@ -28,7 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#345F85"
+                android:background="#3A5975"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -65,7 +65,7 @@
 
                     <ImageView
                         android:id="@+id/refresh"
-                        android:layout_gravity="center"
+                        android:layout_gravity="right"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:srcCompat="@mipmap/refresh" />
@@ -89,14 +89,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#25547E"
+                android:background="#284763"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -127,7 +127,7 @@
                     <EditText
                         android:id="@+id/solar_voltage"
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/box_border"
                         android:padding="10dp"
                         android:text="0000"
@@ -147,7 +147,7 @@
                     <EditText
                         android:id="@+id/solar_amp"
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/box_border"
                         android:padding="10dp"
                         android:text="0000"
@@ -167,7 +167,7 @@
                     <EditText
                         android:id="@+id/solar_watt"
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/box_border"
                         android:padding="10dp"
                         android:text="0000"
@@ -200,14 +200,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="327dp"
-                android:background="#25547E"
+                android:background="#284763"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -241,7 +241,7 @@
                     <EditText
                         android:id="@+id/battery_voltage"
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/box_border"
                         android:padding="10dp"
                         android:text="0000"
@@ -261,7 +261,7 @@
                     <EditText
                         android:id="@+id/battery_charge"
                         android:layout_width="80dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/box_border"
                         android:padding="10dp"
                         android:text="0000"
@@ -284,7 +284,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -310,7 +310,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -364,7 +364,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -423,7 +423,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -478,7 +478,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -550,14 +550,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#25547E"
+                android:background="#284763"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -634,16 +634,17 @@
 
     </LinearLayout>
 
-    <!--androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical"
+        android:layout_marginBottom="50dp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="10dp"
-        android:id="@+id/container3">
+        android:id="@+id/container2">
 
         <TextView
             android:layout_width="match_parent"
@@ -656,6 +657,6 @@
             android:textColor="#ffffff"
             android:textSize="12dp"/>
 
-    </androidx.cardview.widget.CardView-->
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

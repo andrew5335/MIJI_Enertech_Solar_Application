@@ -21,7 +21,7 @@ import com.miji.solar.fragment.TabFragment4;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_4, R.string.tab_text_3};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -45,12 +45,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return tab2;
 
             case 2 :
-                TabFragment3 tab3 = new TabFragment3();
-                return tab3;
-
-            case 3 :
                 TabFragment4 tab4 = new TabFragment4();
                 return tab4;
+
+            case 3 :
+                TabFragment3 tab3 = new TabFragment3();
+                return tab3;
 
             default :
                 return null;

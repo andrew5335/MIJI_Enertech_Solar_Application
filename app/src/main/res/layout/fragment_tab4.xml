@@ -27,7 +27,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#345F85"
+                android:background="#3A5975"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -64,7 +64,7 @@
 
                     <ImageView
                         android:id="@+id/refresh"
-                        android:layout_gravity="center"
+                        android:layout_gravity="right"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:srcCompat="@mipmap/refresh" />
@@ -93,7 +93,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="vertical">
 
                     <TextView
@@ -111,7 +111,7 @@
                         android:id="@+id/miji_chart"
                         android:layout_width="match_parent"
                         android:layout_height="270dp"
-                        android:background="#25547E"
+                        android:background="#284763"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.495"
@@ -136,7 +136,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#25547E"
+                    android:background="#284763"
                     android:orientation="vertical">
 
                     <TextView
@@ -154,7 +154,7 @@
                         android:id="@+id/miji_chart2"
                         android:layout_width="match_parent"
                         android:layout_height="270dp"
-                        android:background="#25547E"
+                        android:background="#284763"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.495"
