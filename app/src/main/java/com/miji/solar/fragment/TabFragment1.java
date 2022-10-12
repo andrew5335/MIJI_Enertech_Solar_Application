@@ -184,17 +184,17 @@ public class TabFragment1 extends Fragment implements View.OnClickListener {
                         // 메인 상태와 파워 상태 변경
                         if (ret$1.equals("$0")) {
                             circleStatus.setImageResource(R.mipmap.light_verygood);
-                            statusPower.setImageResource(R.mipmap.m1);
+                            statusPower.setImageResource(R.mipmap.p1);
                             solar.setImageResource(R.mipmap.solar_very_good);
                             battery.setImageResource(R.mipmap.battery_verygood);
                         } else if(ret$1.equals("$1")) {
                             circleStatus.setImageResource(R.mipmap.light_good);
-                            statusPower.setImageResource(R.mipmap.m2);
+                            statusPower.setImageResource(R.mipmap.p1);
                             solar.setImageResource(R.mipmap.solar_good);
                             battery.setImageResource(R.mipmap.battery_good);
                         } else if(ret$1.equals("$2")) {
                             circleStatus.setImageResource(R.mipmap.light_bad);
-                            statusPower.setImageResource(R.mipmap.m3);
+                            statusPower.setImageResource(R.mipmap.p1);
                             solar.setImageResource(R.mipmap.solar_bad);
                             battery.setImageResource(R.mipmap.battery_bad);
                         } else {

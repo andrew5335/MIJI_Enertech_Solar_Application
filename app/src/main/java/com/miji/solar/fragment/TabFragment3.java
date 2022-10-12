@@ -111,14 +111,14 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         mijiMain = (MijiMainActivity) getActivity();
         LinearLayout frag1Linear = root.findViewById(R.id.frag3linear);
         sumData = root.findViewById(R.id.sum_data);
-        loadData = root.findViewById(R.id.load_data);
+        //loadData = root.findViewById(R.id.load_data);
         saveData = root.findViewById(R.id.save_data);
         refresh = root.findViewById(R.id.refresh);
         updateTime = root.findViewById(R.id.updateTime);
 
         refresh.setOnClickListener(this);
         saveData.setOnClickListener(this);
-        loadData.setOnClickListener(this);
+        //loadData.setOnClickListener(this);
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
@@ -200,10 +200,12 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                 Log.e(TAG, "refresh click");
                 break;
 
+                /**
             case R.id.load_data:
                 mijiMain.sendData2(requestData);
                 Log.e(TAG, "data request");
                 break;
+                 **/
 
             case R.id.save_data:
                 saveData();

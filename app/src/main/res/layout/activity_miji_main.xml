@@ -68,13 +68,13 @@
 
     </LinearLayout>
 
-    <ru.noties.scrollable.ScrollableLayout
+    <!--ru.noties.scrollable.ScrollableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:scrollable_autoMaxScroll="false"
         app:scrollable_maxScroll="200dp"
         app:scrollable_friction="@integer/material_motion_duration_long_1"
-        app:scrollable_defaultCloseUp="false">
+        app:scrollable_defaultCloseUp="false"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
 
     </LinearLayout>
 
-    </ru.noties.scrollable.ScrollableLayout>
+    <!--/ru.noties.scrollable.ScrollableLayout-->
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

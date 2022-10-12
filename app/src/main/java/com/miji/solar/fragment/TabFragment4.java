@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -65,14 +66,17 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     private MijiMainActivity mijiMain;
 
     private String sendRefresh = CommandConstants.sendRefresh;
+    private String requestData = CommandConstants.sendRequest;
 
     private BarChart barChart, barChart2;
     private XAxis xAxis1, xAxis2;
+    private YAxis yAxis1, yAxis2, yAxis11, yAxis12;
     private ArrayList<String> xVals1, xVals2;
 
     private Bundle bundle;
 
     private TextView updateTime;
+    private Button dataBtn;
 
     public TabFragment4() {
         // Required empty public constructor
@@ -115,6 +119,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         mijiMain = (MijiMainActivity) getActivity();
         LinearLayout frag1Linear = root.findViewById(R.id.frag4linear);
         refresh = root.findViewById(R.id.refresh);
+        dataBtn = root.findViewById(R.id.load_data);
 
         barChart = root.findViewById(R.id.miji_chart);
         barChart.setVisibleXRangeMaximum(5);
@@ -123,17 +128,31 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
         xAxis1 = barChart.getXAxis();
         xAxis2 = barChart2.getXAxis();
+        yAxis1 = barChart.getAxisLeft();
+        yAxis2 = barChart2.getAxisLeft();
+        yAxis11 = barChart.getAxisRight();
+        yAxis12 = barChart2.getAxisRight();
+
         xAxis1.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis1.setTextSize(7);
+        xAxis1.setTextColor(Color.WHITE);
+        xAxis2.setTextColor(Color.WHITE);
         xAxis2.setTextSize(7);
         xAxis1.setLabelCount(5);
         xAxis2.setLabelCount(5);
+        xAxis1.setDrawGridLines(false);
+        xAxis2.setDrawGridLines(false);
+        yAxis1.setDrawGridLines(false);
+        yAxis2.setDrawGridLines(false);
+        yAxis11.setDrawGridLines(false);
+        yAxis12.setDrawGridLines(false);
 
         updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
+        dataBtn.setOnClickListener(this);
 
         setChart("");
         Log.e("graph", "111");
@@ -162,6 +181,11 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 String now = sdf.format(date);
                 updateTime.setText("업데이트 시각 : " + now);
                 Log.e(TAG, "refresh click");
+                break;
+
+            case R.id.load_data:
+                mijiMain.sendData2(requestData);
+                Log.e(TAG, "data request");
                 break;
         }
     }
@@ -256,7 +280,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 chartData.setBarWidth(0.3f);
                 chartData2.setBarWidth(0.3f);
 
-                dataSet.setColor(Color.CYAN);
+                dataSet.setColor(Color.BLUE);
                 dataSet.setBarBorderWidth((float) 0.02);
                 dataSet2.setColor(Color.GREEN);
                 dataSet2.setBarBorderWidth((float) 0.02);

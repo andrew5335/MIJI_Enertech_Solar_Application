@@ -96,16 +96,36 @@
                     android:background="#284763"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_gravity="left"
-                        android:text="발전상태 데이터 그래프"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:textColor="#ffffff"/>
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="left"
+                            android:text="발전상태 데이터 그래프"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"/>
+
+                        <Button
+                            android:id="@+id/load_data"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="100dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/box_border"
+                            android:scrollIndicators="right"
+                            android:text="Data"
+                            android:textSize="10dp"
+                            app:backgroundTint="#051523" />
+
+                    </LinearLayout>
 
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/miji_chart"
