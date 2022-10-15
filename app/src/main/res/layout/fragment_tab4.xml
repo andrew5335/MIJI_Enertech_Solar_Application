@@ -113,31 +113,48 @@
                             android:textStyle="bold"
                             android:textColor="#ffffff"/>
 
-                        <Button
-                            android:id="@+id/load_data"
-                            android:layout_width="60dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="100dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@drawable/box_border"
-                            android:scrollIndicators="right"
-                            android:text="Data"
-                            android:textSize="10dp"
-                            app:backgroundTint="#051523" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/load_data"
+                                android:layout_width="80dp"
+                                android:layout_height="35dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_gravity="right"
+                                android:background="@drawable/box_border"
+                                android:scrollIndicators="right"
+                                android:text="Data"
+                                android:textSize="10dp"
+                                app:backgroundTint="#051523" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/miji_chart"
+                    <com.ssomai.android.scalablelayout.ScalableLayout
                         android:layout_width="match_parent"
-                        android:layout_height="270dp"
+                        android:layout_height="wrap_content"
                         android:background="#284763"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.495"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.471" />
+                        app:scale_base_width="400"
+                        app:scale_base_height="250">
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/miji_chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:background="#284763"
+                            app:scale_width="400"
+                            app:scale_height="250"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.495"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.471" />
+
+                    </com.ssomai.android.scalablelayout.ScalableLayout>
 
                 </LinearLayout>
 
@@ -170,17 +187,26 @@
                         android:textStyle="bold"
                         android:textColor="#ffffff"/>
 
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/miji_chart2"
+                    <com.ssomai.android.scalablelayout.ScalableLayout
                         android:layout_width="match_parent"
-                        android:layout_height="270dp"
+                        android:layout_height="wrap_content"
                         android:background="#284763"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.495"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.471" />
+                        app:scale_base_width="400"
+                        app:scale_base_height="250">
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/miji_chart2"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:background="#284763"
+                            app:scale_width="400"
+                            app:scale_height="250"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.495"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.471" />
+                    </com.ssomai.android.scalablelayout.ScalableLayout>
 
                 </LinearLayout>
 

@@ -105,11 +105,19 @@
 
             </androidx.cardview.widget.CardView>
 
+            <com.ssomai.android.scalablelayout.ScalableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#284763"
+                app:scale_base_width="400"
+                app:scale_base_height="400">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#284763"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:scale_width="400"
+                app:scale_height="400">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,12 +139,25 @@
                     app:civ_border_width="1dp"
                     app:civ_border_color="@color/black"
                     android:src="@mipmap/m0"/-->
-                <ImageView
-                    android:id="@+id/status"
-                    android:layout_gravity="center"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    app:srcCompat="@mipmap/light_bad" />
+                <com.ssomai.android.scalablelayout.ScalableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#284763"
+                    app:scale_base_width="400"
+                    app:scale_base_height="120">
+
+                    <ImageView
+                        android:id="@+id/status"
+                        android:layout_gravity="center"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:scale_width="400"
+                        app:scale_height="120"
+                        app:srcCompat="@mipmap/light_bad" />
+
+                </com.ssomai.android.scalablelayout.ScalableLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -160,6 +181,8 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="30dp"
+                    app:scale_width="130"
+                    app:scale_height="50"
                     app:srcCompat="@mipmap/solar_bad" />
 
                 <TextView
@@ -269,6 +292,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
 
         </androidx.cardview.widget.CardView>>
 

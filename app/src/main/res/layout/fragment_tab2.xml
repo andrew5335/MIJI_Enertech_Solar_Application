@@ -111,7 +111,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_gravity="center"
                         android:text="태양광 모듈"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         android:textColor="#ffffff"/>
 
@@ -126,11 +126,11 @@
 
                     <EditText
                         android:id="@+id/solar_voltage"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:gravity="center_vertical|center"
                         android:background="@drawable/box_border"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="0000"
                         android:textSize="16dp"
                         android:textColor="#ffffff" />
@@ -147,11 +147,11 @@
 
                     <EditText
                         android:id="@+id/solar_amp"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:gravity="center_vertical|center"
                         android:background="@drawable/box_border"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="0000"
                         android:textSize="16dp"
                         android:textColor="#ffffff"/>
@@ -168,11 +168,11 @@
 
                     <EditText
                         android:id="@+id/solar_watt"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:gravity="center_vertical|center"
                         android:background="@drawable/box_border"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="0000"
                         android:textSize="16dp"
                         android:textColor="#ffffff"/>
@@ -226,7 +226,7 @@
                         android:layout_marginLeft="20dp"
                         android:text="배터리"
                         android:textColor="#ffffff"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
 
@@ -243,11 +243,11 @@
 
                     <EditText
                         android:id="@+id/battery_voltage"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:gravity="center_vertical|center"
                         android:background="@drawable/box_border"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="0000"
                         android:textColor="#ffffff"
                         android:textSize="16dp" />
@@ -264,11 +264,11 @@
 
                     <EditText
                         android:id="@+id/battery_charge"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:gravity="center_vertical|center"
                         android:background="@drawable/box_border"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="0000"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
@@ -280,7 +280,7 @@
                         android:layout_marginRight="10dp"
                         android:text="Charging rate (%)"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -302,10 +302,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="5dp"
                         android:text="각 Cell 전압 및 온도"
                         android:textColor="#ffffff"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -320,47 +320,47 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_lefttop"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell1"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell2"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell3"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_righttop"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell4"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -375,50 +375,50 @@
 
                     <TextView
                         android:id="@+id/cell1"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_leftbottom"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/cell2"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/cell3"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/cell4"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_rightbottom"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -433,47 +433,47 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_lefttop"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell5"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell6"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Cell7"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_righttop"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text="Temprature"
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -489,50 +489,50 @@
 
                     <TextView
                         android:id="@+id/cell5"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_leftbottom"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/cell6"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/cell7"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_no"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/temperature"
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_rightbottom"
                         android:gravity="center|center_vertical|center_horizontal"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -578,7 +578,7 @@
                         android:layout_marginLeft="20dp"
                         android:text="LED 램프 제어"
                         android:textColor="#ffffff"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -586,17 +586,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:gravity="center_vertical|center"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/lamp_on"
                         android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_marginRight="10dp"
                         android:text="ON"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         app:backgroundTint="#25547E" />
 
@@ -606,26 +606,26 @@
                         android:layout_marginRight="10dp"
                         android:textColor="#ffffff"
                         android:textStyle="bold"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:text="/" />
 
                     <Button
                         android:id="@+id/lamp_off"
                         android:layout_width="70dp"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_marginRight="10dp"
                         android:text="OFF"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         app:backgroundTint="#25547E" />
 
                     <Button
                         android:id="@+id/lamp_test"
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
+                        android:layout_height="35dp"
                         android:layout_marginLeft="5dp"
                         android:text="Test"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         android:background="@drawable/box_border_dark"
                         app:backgroundTint="#121325" />
