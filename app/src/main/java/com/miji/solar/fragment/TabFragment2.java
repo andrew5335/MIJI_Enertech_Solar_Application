@@ -252,6 +252,9 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
             String[] tmpArr = data3.split("/");
 
             if(null != tmpArr && 0 < tmpArr.length) {
+                if(tmpArr[0].contains("#")) {
+                    tmpArr[0] = tmpArr[0].replaceAll("#", "");
+                }
                 cell1.setText(tmpArr[0]);
                 cell2.setText(tmpArr[1]);
             }
@@ -270,6 +273,9 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
             String[] tmpArr = data4.split("/");
 
             if(null != tmpArr && 0 < tmpArr.length) {
+                if(tmpArr[0].contains("%")) {
+                    tmpArr[0] = tmpArr[0].replaceAll("%", "");
+                }
                 cell5.setText(tmpArr[0]);
                 cell6.setText(tmpArr[1]);
             }

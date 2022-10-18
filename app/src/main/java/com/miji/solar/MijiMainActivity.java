@@ -290,6 +290,8 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
             public void onStart(boolean startScanSuccess, String info) {
                 Log.e("miji", "scan start");
                 mLoadingDialog.show();
+                deviceList.clear();
+                mDeviceArrayAdapter.clear();
                 message = "Start Scan";
                 mLoadingDialog.setMessage(message);
                 mLoadingDialog.setCancelable(true);
