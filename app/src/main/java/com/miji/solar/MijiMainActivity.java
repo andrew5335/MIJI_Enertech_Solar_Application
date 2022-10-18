@@ -507,7 +507,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                     updateCommandState("SPP READ");
                     String str2 = "" + unHex(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                     //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
-                    if (str2.charAt(1) == '&') {
+                    if (str2.charAt(1) == '&' || str2.charAt(1) == '~') {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
                         String[] split = str.split("/");
