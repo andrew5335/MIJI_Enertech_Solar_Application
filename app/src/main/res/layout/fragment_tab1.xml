@@ -32,7 +32,8 @@
                 android:text="태양광 가로등 전문기업 (주)미지에너텍"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:fontFamily="@font/notosans_medium"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -125,9 +126,10 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="50dp"
                     android:text="전체 가로등 상태"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="#ffffff"
+                    android:fontFamily="@font/notosans_regular"/>
 
                 <!--de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/status"
@@ -146,7 +148,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="#284763"
                     app:scale_base_width="400"
-                    app:scale_base_height="120">
+                    app:scale_base_height="100">
 
                     <ImageView
                         android:id="@+id/status"
@@ -154,24 +156,25 @@
                         android:layout_width="140dp"
                         android:layout_height="140dp"
                         app:scale_width="400"
-                        app:scale_height="120"
+                        app:scale_height="100"
                         app:srcCompat="@mipmap/light_bad" />
 
                 </com.ssomai.android.scalablelayout.ScalableLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="개별 가로등 상태"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:text="개별 가로등 상태"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center|center_vertical"
                 android:orientation="horizontal" >
 
@@ -220,8 +223,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
                     android:gravity="right|center_vertical"
                     android:orientation="horizontal" >
@@ -245,7 +248,8 @@
                         android:text="매우 양호"
                         android:textSize="12dp"
                         android:textColor="#ffffff"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:fontFamily="@font/notosans_regular"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/status_good"
@@ -266,7 +270,8 @@
                         android:text="양호"
                         android:textSize="12dp"
                         android:textColor="#ffffff"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:fontFamily="@font/notosans_regular"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/status_bad"
@@ -287,7 +292,8 @@
                         android:text="나쁨"
                         android:textSize="12dp"
                         android:textColor="#ffffff"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:fontFamily="@font/notosans_regular"/>
 
                 </LinearLayout>
 
@@ -297,8 +303,6 @@
         </androidx.cardview.widget.CardView>>
 
         <androidx.cardview.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -315,7 +319,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -336,17 +340,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="5dp"
+                        android:fontFamily="@font/notosans_regular"
                         android:text="전원 (POWER)"
-                        android:textSize="14dp"
-                        android:textStyle="normal"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:textSize="12dp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -368,16 +373,17 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="5dp"
                         android:text="충전상태 (CHARGE)"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="normal"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:fontFamily="@font/notosans_regular"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -399,16 +405,17 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="5dp"
                         android:text="과전압 보호 (Over Voltage Protection)"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="normal"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:fontFamily="@font/notosans_regular"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
@@ -431,9 +438,10 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="5dp"
                         android:text="저전압 보호 (Low Voltage Protection)"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textStyle="normal"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:fontFamily="@font/notosans_regular"/>
 
                 </LinearLayout>
 

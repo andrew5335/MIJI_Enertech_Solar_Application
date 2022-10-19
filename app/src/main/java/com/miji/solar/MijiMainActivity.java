@@ -356,7 +356,13 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
         if (this.mGattCharacteristics != null) {
             try {
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
-                bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str + "\r\n");
+                if(str.equals(CommandConstants.sendRequest)) {
+                    Log.e(TAG, "111");
+                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str);
+                } else {
+                    Log.e(TAG, "222");
+                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str + "\r\n");
+                }
             } catch (Exception e) {
                 String str3 = TAG;
                 Log.d(str3, e + "");
@@ -511,9 +517,10 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                     //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
                     if (str2.charAt(1) == '&' || str2.charAt(1) == '~') {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
+                        str = str.replaceAll("&", "/&");
                         //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
                         String[] split = str.split("/");
-                        int i = 0;
+                        int i = 1;
                         while (split.length > 0) {
                             try {
                                 StringBuilder sb = new StringBuilder();

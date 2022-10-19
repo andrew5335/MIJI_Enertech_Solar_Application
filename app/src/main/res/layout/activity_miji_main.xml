@@ -37,13 +37,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="center|center_horizontal|center_vertical"
+                android:gravity="center|center_horizontal"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical|center_horizontal"
+                    android:layout_weight="0.8"
+                    android:fontFamily="@font/notosans_medium"
                     android:text="태양광 가로등 스마트앱"
                     android:textColor="#1CFEA5"
                     android:textSize="16dp"
@@ -51,11 +52,13 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical|center_horizontal"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7"
+                    android:layout_gravity="center|center_horizontal"
+                    android:fontFamily="@font/notosans_medium"
                     android:text="            Solar Street Light Smart Application"
-                    android:textSize="12dp"
                     android:textColor="#1CFEA5"
+                    android:textSize="10dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

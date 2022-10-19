@@ -659,7 +659,8 @@
             android:text="A/S\n주식회사 미지에너텍\n Tel. +82-53-653-5670\nE-Mail. miji5670@naver.com"
             android:textStyle="normal"
             android:textColor="#ffffff"
-            android:textSize="12dp"/>
+            android:textSize="12dp"
+            android:fontFamily="@font/notosans_regular"/>
 
     </androidx.cardview.widget.CardView>
 

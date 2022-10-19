@@ -159,7 +159,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
-            //Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "tab4 data1 : " + bundle.getString("data3"), Toast.LENGTH_LONG).show();
 
             setChart(bundle.getString("data3"));
         } else {
@@ -175,12 +175,12 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
-                mijiMain.sendData2(sendRefresh);
+                mijiMain.sendData2(requestData);
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);
                 updateTime.setText("업데이트 시각 : " + now);
-                Log.e(TAG, "refresh click");
+                Log.e(TAG, requestData + " click");
                 break;
 
             case R.id.load_data:
@@ -191,7 +191,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             data = data.replaceAll(System.getProperty("line.separator"), "");
             data = data.replaceAll("&", "");
@@ -301,6 +301,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
         } else {
             // 데이터가 없을 경우 아래 샘플 코드로 챠트 생성
+            /**
             data = "&001027520010~001128700031020/" +
                     "&002027520010~002128650031022/" +
                     "&003027260010~003128260031023/" +
@@ -311,6 +312,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                     "&008026980010~001127570031039/" +
                     "&009026390010~001128500031042/" +
                     "&010027470010~001128850031043/";
+             **/
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 data = data.replaceAll(System.getProperty("line.separator"), "");

@@ -122,7 +122,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
-            //Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data"), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data3"), Toast.LENGTH_LONG).show();
             data = bundle.getString("data3");
             setData(data);
         } else {
@@ -134,7 +134,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void setData(String data) {
-        //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             data = data.replaceAll("&", "");
             String[] tmpArr = data.split("/");
@@ -146,8 +146,10 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                     sb.append(tmpArr[i]);
                     sb.append("\r\n");
                 }
+
+                data = sb.toString();
             }
-            data = sb.toString();
+
             dataSave = data;
 
             sumData.setText("");
@@ -155,6 +157,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             sumData.setMovementMethod(new ScrollingMovementMethod());
             sumData.setTextColor(Color.WHITE);
         } else {
+            /**
             data = "&001027520010~001128700031020/" +
                     "&002027520010~002128650031022/" +
                     "&003027260010~003128260031023/" +
@@ -165,25 +168,28 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                     "&008026980010~001127570031039/" +
                     "&009026390010~001128500031042/" +
                     "&010027470010~001128850031043/";
+             **/
 
-            data = data.replaceAll("&", "");
-            String[] tmpArr = data.split("/");
-            StringBuilder sb = new StringBuilder();
+            if(null != data && !"".equals(data) && 0 < data.length()) {
+                data = data.replaceAll("&", "");
+                String[] tmpArr = data.split("/");
+                StringBuilder sb = new StringBuilder();
 
-            if(null != tmpArr && 0 < tmpArr.length) {
-                for(int i=0; i < tmpArr.length; i++) {
-                    sb.append(i + 1 + "   ");
-                    sb.append(tmpArr[i]);
-                    sb.append("\r\n");
+                if (null != tmpArr && 0 < tmpArr.length) {
+                    for (int i = 0; i < tmpArr.length; i++) {
+                        sb.append(i + 1 + "   ");
+                        sb.append(tmpArr[i]);
+                        sb.append("\r\n");
+                    }
                 }
-            }
-            data = sb.toString();
-            dataSave = data;
+                data = sb.toString();
+                dataSave = data;
 
-            sumData.setText("");
-            sumData.setText(data);
-            sumData.setMovementMethod(new ScrollingMovementMethod());
-            sumData.setTextColor(Color.WHITE);
+                sumData.setText("");
+                sumData.setText(data);
+                sumData.setMovementMethod(new ScrollingMovementMethod());
+                sumData.setTextColor(Color.WHITE);
+            }
         }
     }
 
@@ -192,12 +198,12 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
-                mijiMain.sendData2(sendRefresh);
+                mijiMain.sendData2(requestData);
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);
                 updateTime.setText("업데이트 시각 : " + now);
-                Log.e(TAG, "refresh click");
+                Log.e(TAG, requestData + " click");
                 break;
 
                 /**
