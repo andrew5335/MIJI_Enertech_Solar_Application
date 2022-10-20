@@ -358,8 +358,8 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
                 if(str.equals(CommandConstants.sendRequest)) {
                     Log.e(TAG, "111");
-                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), "\\");
-                    //bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str);
+                    //bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), "\\");
+                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str);
                     //MainActivity.this.mBluetoothLeService.writeCharacteristics(bluetoothGattCharacteristic, "\\");
                 } else {
                     Log.e(TAG, "222");
@@ -519,25 +519,69 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                     //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
                     if (str2.charAt(1) == '&' || str2.charAt(1) == '~') {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
-                        str = str.replaceAll("&", "/&");
+                        //str = str.replaceAll("&", "/&");
                         //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
+                        Log.e(TAG, "receive message1 : " + str);
                         String[] split = str.split("/");
-                        int i = 1;
+                        int i = 0;
+                        /**
                         while (split.length > 0) {
                             try {
                                 StringBuilder sb = new StringBuilder();
-                                sb.append(ddd);
+                                MijiMainActivity mijiMainActivity = MijiMainActivity.this;
+                                sb.append(mijiMainActivity.ddd);
                                 sb.append(split[i]);
-                                ddd = sb.toString();
+                                mijiMainActivity.ddd = sb.toString();
                                 StringBuilder sb2 = new StringBuilder();
-                                sb2.append(ddd);
+                                MijiMainActivity mijiMainActivity2 = MijiMainActivity.this;
+                                sb2.append(mijiMainActivity2.ddd);
                                 sb2.append("\r\n");
-                                ddd = sb2.toString();
+                                mijiMainActivity2.ddd = sb2.toString();
+
+                                Log.e(TAG, "receive message : " + MijiMainActivity.this.ddd);
+                                Bundle bundle = new Bundle(1);
+                                bundle.putString("data3", MijiMainActivity.this.ddd);
+
+                                tab3Frag.setArguments(bundle);
+                                tab4Frag.setArguments(bundle);
+
+                                if(tab3Frag.getView() != null) {
+                                    tab3Frag.setData(MijiMainActivity.this.ddd);
+                                } else {
+                                    fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                                }
+
+                                if(tab4Frag.getView() != null) {
+                                    tab4Frag.setChart(MijiMainActivity.this.ddd);
+                                } else {
+                                    fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+                                }
+
                                 i++;
                             } catch (Exception unused3) {
                             }
                         }
+                         **/
+                        if(null != MijiMainActivity.this.ddd && !"".equals(MijiMainActivity.this.ddd) && 0 < MijiMainActivity.this.ddd.length()) {
+                            Log.e(TAG, "receive message : " + MijiMainActivity.this.ddd);
+                            Bundle bundle = new Bundle(1);
+                            bundle.putString("data3", MijiMainActivity.this.ddd);
 
+                            tab3Frag.setArguments(bundle);
+                            tab4Frag.setArguments(bundle);
+
+                            if(tab3Frag.getView() != null) {
+                                tab3Frag.setData(MijiMainActivity.this.ddd);
+                            } else {
+                                fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                            }
+
+                            if(tab4Frag.getView() != null) {
+                                tab4Frag.setChart(MijiMainActivity.this.ddd);
+                            } else {
+                                fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
+                            }
+                        }
                     } else {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         //Toast.makeText(getApplicationContext(), "readdata3 : " + str, Toast.LENGTH_LONG).show();
@@ -545,7 +589,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
 
                     if(null != str && !"".equals(str) && 0 < str.length()) {
                         // 인입된 데이터가 있을 경우 화면 처리를 위해 Fragment로 전달
-                        Bundle bundle = new Bundle(3);
+                        Bundle bundle = new Bundle(7);
                         if(str.startsWith("$")) {
                             tStr1 = str;
                             bundle.putString("data", tStr1);
@@ -556,7 +600,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                             bundle.putString("data2", tStr2);
                         }
 
-                        if(str.startsWith("&")) {
+                        if(str.startsWith("&") || str.startsWith("~")) {
                             tStr3 = str;
                             bundle.putString("data3", tStr3);
                         }

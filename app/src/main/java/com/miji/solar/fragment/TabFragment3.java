@@ -122,7 +122,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
         if(null != bundle) {
             //Log.i(TAG, bundle.getString("data"));
-            Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data3"), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "tab3 data1 : " + bundle.getString("data3"), Toast.LENGTH_LONG).show();
             data = bundle.getString("data3");
             setData(data);
         } else {
@@ -134,9 +134,15 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void setData(String data) {
-        Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
-            data = data.replaceAll("&", "");
+            sumData.setText("");
+
+            if(data.startsWith("&")) {
+                data = data.replaceAll("&", "");
+            } else if(data.startsWith("~")) {
+                data = data.replaceAll("~", "");
+            }
             String[] tmpArr = data.split("/");
             StringBuilder sb = new StringBuilder();
 
@@ -152,12 +158,21 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
             dataSave = data;
 
-            sumData.setText("");
+            String tmpData = "";
+            tmpData = sumData.getText().toString();
+
+            sb.append("");
+            sb.append(tmpData);
+            sb.append("\r\n");
+            sb.append(data);
+
+            data = sb.toString();
+
             sumData.setText(data);
             sumData.setMovementMethod(new ScrollingMovementMethod());
             sumData.setTextColor(Color.WHITE);
         } else {
-            /**
+
             data = "&001027520010~001128700031020/" +
                     "&002027520010~002128650031022/" +
                     "&003027260010~003128260031023/" +
@@ -168,10 +183,14 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                     "&008026980010~001127570031039/" +
                     "&009026390010~001128500031042/" +
                     "&010027470010~001128850031043/";
-             **/
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
-                data = data.replaceAll("&", "");
+                if(data.startsWith("&")) {
+                    data = data.replaceAll("&", "");
+                } else if(data.startsWith("~")) {
+                    data = data.replaceAll("~", "");
+                }
+
                 String[] tmpArr = data.split("/");
                 StringBuilder sb = new StringBuilder();
 
