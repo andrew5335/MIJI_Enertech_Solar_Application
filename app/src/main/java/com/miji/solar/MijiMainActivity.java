@@ -348,7 +348,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
     /* access modifiers changed from: private */
     public void sendData2(String str) {
         String str2 = TAG;
-        Log.d(str2, "senddata2  " + str + "");
+        Log.e(str2, "senddata2  " + str + "");
 
         //tab4Frag.setChart("$1/1/1/2831/97");
         //getSupportFragmentManager().beginTransaction().replace(R.id.frag3, tab3Frag).commit();
@@ -358,7 +358,9 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                 BluetoothLeService bluetoothLeService = this.mBluetoothLeService;
                 if(str.equals(CommandConstants.sendRequest)) {
                     Log.e(TAG, "111");
-                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str);
+                    bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), "\\");
+                    //bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str);
+                    //MainActivity.this.mBluetoothLeService.writeCharacteristics(bluetoothGattCharacteristic, "\\");
                 } else {
                     Log.e(TAG, "222");
                     bluetoothLeService.writeCharacteristics((BluetoothGattCharacteristic) this.mGattCharacteristics.get(3).get(0), str + "\r\n");
