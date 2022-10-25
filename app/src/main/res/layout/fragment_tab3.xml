@@ -101,8 +101,8 @@
                 android:layout_height="500dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
-                android:text="Data loading..."
-                android:textSize="16dp"
+                android:text=""
+                android:textSize="12dp"
                 android:scrollbars="vertical"
                 android:scrollbarStyle="outsideInset"
                 android:background="@drawable/box_border_white"/>

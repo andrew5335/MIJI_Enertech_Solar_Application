@@ -28,7 +28,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +68,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     private String data2;
     private String data3;
     private String dataSave;
+
+    private LinkedList<String> dataList = new LinkedList<String>();
 
     private TextView updateTime;
 
@@ -116,6 +121,10 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         refresh = root.findViewById(R.id.refresh);
         updateTime = root.findViewById(R.id.updateTime);
 
+        if(null != dataList) {
+            dataList = new LinkedList<String>();
+        }
+
         refresh.setOnClickListener(this);
         saveData.setOnClickListener(this);
         //loadData.setOnClickListener(this);
@@ -134,16 +143,20 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void setData(String data) {
+        //dataList = new LinkedList<String>();
         //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
-            sumData.setText("");
 
             if(data.startsWith("&")) {
                 data = data.replaceAll("&", "");
             } else if(data.startsWith("~")) {
                 data = data.replaceAll("~", "");
             }
+            dataList.add(data);
+
+            /**
             String[] tmpArr = data.split("/");
+
             StringBuilder sb = new StringBuilder();
 
             if(null != tmpArr && 0 < tmpArr.length) {
@@ -171,8 +184,19 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             sumData.setText(data);
             sumData.setMovementMethod(new ScrollingMovementMethod());
             sumData.setTextColor(Color.WHITE);
+             **/
+            Log.e(TAG, "receive tag3 data : " + data);
+
+            if(null != sumData.getText().toString() && !"".equals(sumData.getText().toString()) && 0 < sumData.getText().toString().length()) {
+
+            } else {
+                if (data.startsWith("*")) {
+                    displayData(dataList);
+                }
+            }
         } else {
 
+            /**
             data = "&001027520010~001128700031020/" +
                     "&002027520010~002128650031022/" +
                     "&003027260010~003128260031023/" +
@@ -183,6 +207,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                     "&008026980010~001127570031039/" +
                     "&009026390010~001128500031042/" +
                     "&010027470010~001128850031043/";
+             **/
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 if(data.startsWith("&")) {
@@ -212,12 +237,77 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void displayData(LinkedList<String> dataList) {
+        if(null != dataList && 0 < dataList.size()) {
+            /**
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i < dataList.size(); i++) {
+                Log.e(TAG, "data message : " + dataList.get(i));
+                Log.e(TAG, "data length : " + dataList.get(i).length());
+                sb.append("");
+                if(dataList.get(i).length() > 12) {
+                    sb.append(dataList.get(i).substring(0, 12));
+                } else {
+                    sb.append(dataList.get(i));
+                }
+                sb.append("\r\n");
+            }
+             **/
+
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i < dataList.size()-1; i++) {
+                sb.append("");
+                sb.append(dataList.get(i));
+                sb.append("~");
+                sb.append(dataList.get(i+1).substring(0, 12));
+                sb.append("   ");
+                sb.append("SOB : " +  dataList.get(i+1).substring(12, 15));
+                sb.append("\r\n");
+                i++;
+            }
+            StringBuilder sb2 = new StringBuilder();
+            for(int i=0; i < dataList.size()-1; i++) {
+                sb2.append("");
+                sb2.append(dataList.get(i).substring(0,3));
+                sb2.append(",");
+                sb2.append(dataList.get(i).substring(3,4));
+                sb2.append(",");
+                sb2.append(dataList.get(i).substring(4,8));
+                sb2.append(",");
+                sb2.append(dataList.get(i).substring(8,12));
+                sb2.append(",");
+                sb2.append("~");
+                sb2.append(",");
+                sb2.append(dataList.get(i+1).substring(0, 3));
+                sb2.append(",");
+                sb2.append(dataList.get(i+1).substring(3, 4));
+                sb2.append(",");
+                sb2.append(dataList.get(i+1).substring(4, 8));
+                sb2.append(",");
+                sb2.append(dataList.get(i+1).substring(8, 12));
+                sb2.append(",");
+                sb2.append(dataList.get(i+1).substring(12, 15));
+                sb2.append("\r\n");
+                i++;
+            }
+
+            String dpText = sb.toString();
+            sumData.setText("");
+            sumData.setText(dpText);
+            sumData.setMovementMethod(new ScrollingMovementMethod());
+            sumData.setTextColor(Color.WHITE);
+
+            dataSave = sb2.toString();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
-                mijiMain.sendData2(requestData);
+                //mijiMain.sendData2(requestData);
+                mijiMain.sendData2(sendRefresh);
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);
@@ -241,7 +331,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void saveData() {
-        String data = sumData.getText().toString();
+        //String data = sumData.getText().toString();
+        String data = dataSave;
         String result = "";
 
         if(null != data && !"".equals(data) && 0 < data.length()) {
@@ -272,7 +363,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             fileName = "mijiData_" + sdf.format(date);
 
             try {
-                FileOutputStream fileOutputStream = new FileOutputStream(foldername + "/" + fileName + ".txt", true);
+                FileOutputStream fileOutputStream = new FileOutputStream(foldername + "/" + fileName + ".csv", true);
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
                 bufferedWriter.write(str);
                 bufferedWriter.flush();

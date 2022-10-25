@@ -368,23 +368,6 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
             } catch (Exception e) {
                 String str3 = TAG;
                 Log.d(str3, e + "");
-
-                /**
-                Bundle bundle = new Bundle(3);
-                bundle.putString("data", "$1/1/1/2831/97");
-                bundle.putString("data2", "@3094/291/8730");
-                bundle.putString("data3", ddd);
-                tab1Frag.setArguments(bundle);
-                tab2Frag.setArguments(bundle);
-                tab3Frag.setArguments(bundle);
-                tab4Frag.setArguments(bundle);
-
-                fragmentManager.beginTransaction().detach(tab1Frag).attach(tab1Frag).replace(R.id.frag1, tab1Frag).commit();
-                fragmentManager.beginTransaction().detach(tab2Frag).attach(tab2Frag).replace(R.id.frag2, tab2Frag).commit();
-                fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
-                fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
-                 **/
-
             }
         }
     }
@@ -517,12 +500,12 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                     updateCommandState("SPP READ");
                     String str2 = "" + unHex(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                     //Toast.makeText(getApplicationContext(), "readdata1 : " + str2, Toast.LENGTH_LONG).show();
-                    if (str2.charAt(1) == '&' || str2.charAt(1) == '~') {
+                    if (str2.startsWith("&") || str2.startsWith("~") || str2.startsWith("*")) {
                         str = str2.replaceAll(System.getProperty("line.separator"), "");
                         //str = str.replaceAll("&", "/&");
                         //Toast.makeText(getApplicationContext(), "readdata2 : " + str, Toast.LENGTH_LONG).show();
                         Log.e(TAG, "receive message1 : " + str);
-                        String[] split = str.split("/");
+                        //String[] split = str.split("/");
                         int i = 0;
                         /**
                         while (split.length > 0) {
@@ -600,9 +583,17 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                             bundle.putString("data2", tStr2);
                         }
 
-                        if(str.startsWith("&") || str.startsWith("~")) {
-                            tStr3 = str;
-                            bundle.putString("data3", tStr3);
+                        if(str.startsWith("&") || str.startsWith("~") || str.startsWith("*")) {
+                            if(str.startsWith("&") && str.length() == 13) {
+                                tStr3 = str;
+                                bundle.putString("data3", tStr3);
+                            } else if(str.startsWith("~") && str.length() == 16) {
+                                tStr3 = str;
+                                bundle.putString("data3", tStr3);
+                            } else if(str.startsWith("*")) {
+                                tStr3 = str;
+                                bundle.putString("data3", tStr3);
+                            }
                         }
 
                         if(str.startsWith("#")) {
@@ -615,7 +606,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                             bundle.putString("data5", tStr5);
                         }
 
-                        if(!str.startsWith("$") && !str.startsWith("@") && !str.startsWith("&") && !str.startsWith("#") && !str.startsWith("%")) {
+                        if(!str.startsWith("$") && !str.startsWith("@") && !str.startsWith("&") && !str.startsWith("#") && !str.startsWith("%") && !str.startsWith("~") && !str.startsWith("*")) {
                             String[] tmpArr = str.split("/");
 
                             if(null != tmpArr && 0 < tmpArr.length) {

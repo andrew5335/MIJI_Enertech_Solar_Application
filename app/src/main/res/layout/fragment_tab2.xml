@@ -113,7 +113,7 @@
                         android:text="태양광 모듈"
                         android:textSize="14dp"
                         android:textStyle="bold"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#FFFFFF"/>
 
                 </LinearLayout>
 

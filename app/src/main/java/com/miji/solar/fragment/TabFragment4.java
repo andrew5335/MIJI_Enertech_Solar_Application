@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -67,6 +68,8 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
     private String sendRefresh = CommandConstants.sendRefresh;
     private String requestData = CommandConstants.sendRequest;
+
+    private LinkedList<String> dataList = new LinkedList<String>();
 
     private BarChart barChart, barChart2;
     private XAxis xAxis1, xAxis2;
@@ -141,18 +144,24 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         xAxis2.setTextSize(7);
         xAxis1.setLabelCount(5);
         xAxis2.setLabelCount(5);
+        /** 그리드 처리 : false면 그리드 감추기, true면 그리드 보이기
         xAxis1.setDrawGridLines(false);
         xAxis2.setDrawGridLines(false);
         yAxis1.setDrawGridLines(false);
         yAxis2.setDrawGridLines(false);
         yAxis11.setDrawGridLines(false);
         yAxis12.setDrawGridLines(false);
+         **/
 
         updateTime = root.findViewById(R.id.updateTime);
 
         frag1Linear.setOnClickListener(this);
         refresh.setOnClickListener(this);
         dataBtn.setOnClickListener(this);
+
+        if(null != dataList) {
+            dataList = new LinkedList<String>();
+        }
 
         setChart("");
         Log.e("graph", "111");
@@ -166,7 +175,6 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
             setChart("");
         }
 
-
         return root;
     }
 
@@ -175,7 +183,8 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
-                mijiMain.sendData2(requestData);
+                //mijiMain.sendData2(requestData);
+                mijiMain.sendData2(sendRefresh);
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);
@@ -191,6 +200,44 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
+        dataList = new LinkedList<String>();
+        if(null != data && !"".equals(data) && 0 < data.length()) {
+            if(data.startsWith("&")) {
+                data = data.replaceAll("&", "");
+            } else if(data.startsWith("~")) {
+                data = data.replaceAll("~", "");
+            }
+
+            //if(data.length() == 12 || data.length() == 15) {
+                dataList.add(data);
+            //}
+
+            Log.e(TAG, "receive tag4 data : " + data);
+
+            if(data.startsWith("*")) {
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i < dataList.size()-1; i++) {
+                    sb.append("");
+                    sb.append("&");
+                    sb.append(dataList.get(i));
+                    sb.append("~");
+                    sb.append(dataList.get(i+1));
+                    sb.append("/");
+                    sb.append("\r\n");
+                    i++;
+                }
+
+                String chartData = sb.toString();
+                Log.e(TAG, "chartData : " + chartData);
+                displayChart(chartData);
+                barChart.notifyDataSetChanged();
+                barChart2.notifyDataSetChanged();
+                //displayChart("");
+            }
+        }
+    }
+
+    public void displayChart(String data) {
         //Toast.makeText(getActivity().getApplicationContext(), "tab4 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
             data = data.replaceAll(System.getProperty("line.separator"), "");
@@ -207,14 +254,44 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
             if(null != tmpArr && 0 < tmpArr.length) {
                 for(int i=0; i < tmpArr.length; i++) {
                     String tmpStr = tmpArr[i];
-                    tmpList1.add(String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
-
-                    if(0 < i && i < tmpArr.length) {
-                        tmpList2.add(String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+                    Log.e(TAG, "tmpStr length : " + tmpStr.length());
+                    if(1 < tmpStr.length() && tmpStr.length() < 30) {
+                        Log.e(TAG, "tmp1-1 : " + i + " " + tmpStr.substring(17, 21));
+                        Log.e(TAG, "tmp1-1 : " + i + " " + tmpStr.substring(4, 8));
+                        Log.e(TAG, "tmp1-1 : " + i + " " + String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
+                        tmpList1.add(String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
                     }
 
-                    Log.e("mijierror333", tmpArr[i].substring(26, 28));
-                    barList3.add(new BarEntry((float) i, ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100));
+                    if(0 < i && i < tmpArr.length) {
+                        if(1 < tmpStr.length() && tmpStr.length() < 30) {
+                            Log.e(TAG, "tmp2-1 : " + i + " " + tmpArr[i - 1].substring(17, 21));
+                            Log.e(TAG, "tmp2-1 : " + i + " " + tmpArr[i].substring(17, 21));
+                            Log.e(TAG, "tmp2-1 : " + i + " " + String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+                            tmpList2.add(String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+                        }
+                    }
+
+                    if(1 < tmpArr[i].length() && tmpArr[i].length() < 30) {
+                        Log.e("mijierror333", tmpArr[i].substring(26, 28));
+                        Float tmp = new Float(0);
+                        tmp = ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100;
+                        if(tmp <= 0) {
+                            tmp = 0f;    // 계산 값이 0 보다 작을 경우에는 0으로 변경
+                        } else {
+                            // 자리수 소수점 2자리까지 처리
+                            String tmpFloatStr = String.format("%.0f", tmp);
+                            if(tmpFloatStr.length() == 3) {
+                                tmpFloatStr = tmpFloatStr.substring(0,1) + "." + tmpFloatStr.substring(1, 3);
+                            } else if(tmpFloatStr.length() == 4) {
+                                tmpFloatStr = tmpFloatStr.substring(0, 2) + "." + tmpFloatStr.substring(2, 4);
+                            } else if(tmpFloatStr.length() == 5) {
+                                tmpFloatStr = tmpFloatStr.substring(0, 3) + "." + tmpFloatStr.substring(3, 5);
+                            }
+
+                            tmp = Float.parseFloat(tmpFloatStr);
+                        }
+                        barList3.add(new BarEntry((float) i, tmp));
+                    }
                 }
 
                 if(null != tmpList1 && 0 < tmpList1.size()) {
@@ -222,7 +299,12 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                         if(tmpList1.get(i).length() == 3) {
                             barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1) + "." + tmpList1.get(i).substring(1, 3)) * 250));
                         } else if(tmpList1.get(i).length() == 2) {
-                            barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                            //barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                            if(Integer.parseInt(tmpList1.get(i).substring(0, 2)) < 0) {
+                                barList1.add(new BarEntry((float) i, Float.parseFloat("-0." + (Integer.parseInt(tmpList1.get(i).substring(0, 2))) * -1) * 250));
+                            } else {
+                                barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                            }
                         } else if(tmpList1.get(i).length() == 1) {
                             barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1)) * 250));
                         }
@@ -239,7 +321,12 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                             if (tmpList2.get(j).length() == 3) {
                                 barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1) + "." + tmpList2.get(j).substring(1, 3)) * 250));
                             } else if (tmpList2.get(j).length() == 2) {
-                                barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                //barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                if(Integer.parseInt(tmpList2.get(j).substring(0, 2)) < 0) {
+                                    barList2.add(new BarEntry((float) j, Float.parseFloat("-0." + (Integer.parseInt(tmpList2.get(j).substring(0, 2))) * -1) * 250));
+                                } else {
+                                    barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                }
                             } else if (tmpList2.get(j).length() == 1) {
                                 barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1)) * 250));
                             }
@@ -268,6 +355,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
                 ArrayList<BarDataSet> dataSetList2 = new ArrayList<BarDataSet>();
 
+                dataSet.setColor(28254165, 100);
+                dataSet2.setColor(78131249, 100);
+                dataSet3.setColor(206211214, 100);
+
                 dataSetList.add(dataSet);
                 dataSetList.add(dataSet2);
                 dataSetList2.add(dataSet3);
@@ -280,12 +371,12 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 chartData.setBarWidth(0.3f);
                 chartData2.setBarWidth(0.3f);
 
-                dataSet.setColor(Color.BLUE);
+                //dataSet.setColor(Color.BLUE);
                 dataSet.setBarBorderWidth((float) 0.02);
-                dataSet2.setColor(Color.GREEN);
+                //dataSet2.setColor(Color.GREEN);
                 dataSet2.setBarBorderWidth((float) 0.02);
 
-                dataSet3.setColor(Color.GRAY);
+                //dataSet3.setColor(Color.GRAY);
                 dataSet3.setBarBorderWidth((float) 0.02);
 
                 Collections.reverse(xVals1);
@@ -295,24 +386,33 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
                 barChart.setData(chartData);
                 barChart.groupBars(0.2f, 0.3f, 0.02f);
+                barChart.notifyDataSetChanged();
+                barChart.refreshDrawableState();
+                barChart.invalidate();
+
 
                 barChart2.setData(chartData2);
+                barChart2.notifyDataSetChanged();
+                barChart2.refreshDrawableState();
+                barChart2.invalidate();
             }
 
         } else {
             // 데이터가 없을 경우 아래 샘플 코드로 챠트 생성
-            /**
-            data = "&001027520010~001128700031020/" +
-                    "&002027520010~002128650031022/" +
-                    "&003027260010~003128260031023/" +
-                    "&004027520010~004128650031024/" +
-                    "&005027470010~005128750031025/" +
-                    "&006027520010~001128800031028/" +
-                    "&007027470010~001128400031033/" +
-                    "&008026980010~001127570031039/" +
-                    "&009026390010~001128500031042/" +
-                    "&010027470010~001128850031043/";
-             **/
+            data = "&001000000000~001000000000000/" +
+                    "&002000000000~002128750000000/" +
+                    "&003028700000~003128700000000/" +
+                    "&004028700000~004128700000000/" +
+                    "&005028700000~005128700000000/" +
+                    "&006028750000~006128700000000/" +
+                    "&007028650000~007128650000000/" +
+                    "&008000000000~008128750000000/" +
+                    "&009028750000~009028700000000/" +
+                    "&010028700000~010128650000045/" +
+                    "&011028800000~011128650000000/" +
+                    "&012028700000~012128700000055/" +
+                    "&013000000000~013128700000000/" +
+                    "&014000000000~014128700000060/";
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 data = data.replaceAll(System.getProperty("line.separator"), "");
@@ -332,6 +432,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                         tmpList1.add(String.valueOf(Integer.parseInt(tmpStr.substring(17, 21)) - Integer.parseInt(tmpStr.substring(4, 8))));
 
                         if(0 < i && i < tmpArr.length) {
+                            Log.e(TAG, "tmp2-1 : " + i + " " + tmpArr[i - 1].substring(17, 21));
+                            Log.e(TAG, "tmp2-1 : " + i + " " + tmpArr[i].substring(17, 21));
+                            Log.e(TAG, "tmp2-1 : " + i + " " + String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
+
                             tmpList2.add(String.valueOf(Integer.parseInt(tmpArr[i - 1].substring(17, 21)) - Integer.parseInt(tmpArr[i].substring(4, 8))));
                         }
 
@@ -344,7 +448,11 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                             if(tmpList1.get(i).length() == 3) {
                                 barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1) + "." + tmpList1.get(i).substring(1, 3)) * 250));
                             } else if(tmpList1.get(i).length() == 2) {
-                                barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                                if(Integer.parseInt(tmpList1.get(i).substring(0, 2)) < 0) {
+                                    barList1.add(new BarEntry((float) i, Float.parseFloat("-0." + (Integer.parseInt(tmpList1.get(i).substring(0, 2))) * -1) * 250));
+                                } else {
+                                    barList1.add(new BarEntry((float) i, Float.parseFloat("0." + tmpList1.get(i).substring(0, 2)) * 250));
+                                }
                             } else if(tmpList1.get(i).length() == 1) {
                                 barList1.add(new BarEntry((float) i, Float.parseFloat(tmpList1.get(i).substring(0, 1)) * 250));
                             }
@@ -361,7 +469,11 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                                 if (tmpList2.get(j).length() == 3) {
                                     barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1) + "." + tmpList2.get(j).substring(1, 3)) * 250));
                                 } else if (tmpList2.get(j).length() == 2) {
-                                    barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                    if(Integer.parseInt(tmpList2.get(j).substring(0, 2)) < 0) {
+                                        barList2.add(new BarEntry((float) j, Float.parseFloat("-0." + (Integer.parseInt(tmpList2.get(j).substring(0, 2))) * -1) * 250));
+                                    } else {
+                                        barList2.add(new BarEntry((float) j, Float.parseFloat("0." + tmpList2.get(j).substring(0, 2)) * 250));
+                                    }
                                 } else if (tmpList2.get(j).length() == 1) {
                                     barList2.add(new BarEntry((float) j, Float.parseFloat(tmpList2.get(j).substring(0, 1)) * 250));
                                 }
@@ -417,8 +529,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
                     barChart.setData(chartData);
                     barChart.groupBars(0.2f, 0.3f, 0.02f);
+                    barChart.invalidate();
 
                     barChart2.setData(chartData2);
+                    barChart2.invalidate();
                 }
             }
         }
