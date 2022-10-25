@@ -103,6 +103,7 @@
     <!--/ru.noties.scrollable.ScrollableLayout-->
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|fill_horizontal|end"
@@ -116,21 +117,22 @@
             android:background="#0F2F4C"
             android:orientation="horizontal">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#0F2F4C"
-                app:tabIndicatorColor="#ffffff"
-                app:tabIndicatorGravity="top"
-                app:tabTextColor="#ffffff"
-                app:tabGravity="fill"
-                app:tabMode="scrollable"/>
-
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F2F4C"
+        app:layout_anchor="@+id/toolbar"
+        app:layout_anchorGravity="center"
+        app:tabGravity="center"
+        app:tabIndicatorColor="#ffffff"
+        app:tabIndicatorGravity="top"
+        app:tabMode="scrollable"
+        app:tabTextColor="#ffffff" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

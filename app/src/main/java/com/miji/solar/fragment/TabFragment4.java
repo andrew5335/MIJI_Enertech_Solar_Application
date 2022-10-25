@@ -136,6 +136,11 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         yAxis11 = barChart.getAxisRight();
         yAxis12 = barChart2.getAxisRight();
 
+        yAxis1.setTextColor(Color.WHITE);
+        yAxis2.setTextColor(Color.WHITE);
+        yAxis11.setTextColor(Color.WHITE);
+        yAxis12.setTextColor(Color.WHITE);
+
         xAxis1.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis1.setTextSize(7);
@@ -159,7 +164,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         refresh.setOnClickListener(this);
         dataBtn.setOnClickListener(this);
 
-        if(null != dataList) {
+        if(null != dataList && 0 < dataList.size()) {
             dataList = new LinkedList<String>();
         }
 
@@ -185,6 +190,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
                 //mijiMain.sendData2(requestData);
                 mijiMain.sendData2(sendRefresh);
+                //this.displayChart("");
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);
@@ -200,7 +206,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
     }
 
     public void setChart(String data) {
-        dataList = new LinkedList<String>();
+        if(null != dataList && 0 < dataList.size()) {
+            dataList = new LinkedList<String>();
+        }
+
         if(null != data && !"".equals(data) && 0 < data.length()) {
             if(data.startsWith("&")) {
                 data = data.replaceAll("&", "");
@@ -208,9 +217,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 data = data.replaceAll("~", "");
             }
 
-            //if(data.length() == 12 || data.length() == 15) {
-                dataList.add(data);
-            //}
+            dataList.add(data);
 
             Log.e(TAG, "receive tag4 data : " + data);
 
@@ -234,6 +241,8 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 barChart2.notifyDataSetChanged();
                 //displayChart("");
             }
+        } else {
+            //displayChart("");
         }
     }
 
@@ -273,24 +282,28 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
                     if(1 < tmpArr[i].length() && tmpArr[i].length() < 30) {
                         Log.e("mijierror333", tmpArr[i].substring(26, 28));
-                        Float tmp = new Float(0);
-                        tmp = ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100;
-                        if(tmp <= 0) {
-                            tmp = 0f;    // 계산 값이 0 보다 작을 경우에는 0으로 변경
+                        if(Integer.parseInt(tmpArr[i].substring(26, 28)) > 40) {
+                            barList3.add(new BarEntry((float) i, 0f));
                         } else {
-                            // 자리수 소수점 2자리까지 처리
-                            String tmpFloatStr = String.format("%.0f", tmp);
-                            if(tmpFloatStr.length() == 3) {
-                                tmpFloatStr = tmpFloatStr.substring(0,1) + "." + tmpFloatStr.substring(1, 3);
+                            Float tmp = ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100;
+                            //Log.i(TAG, "tmpvalue : " + tmp);
+
+                            String tmpFloatStr = String.valueOf(tmp);
+                            if(tmpFloatStr.contains(".0")) {
+                                tmpFloatStr = tmpFloatStr.substring(0, tmpFloatStr.indexOf("."));
+                                //Log.i(TAG, "tmpFloatStrvalue : " + tmpFloatStr);
+                            }
+                            if(tmpFloatStr.length() == 2) {
+                                tmpFloatStr = tmpFloatStr + ".00";
+                            } else if(tmpFloatStr.length() == 3) {
+                                tmpFloatStr = tmpFloatStr.substring(0, 1) + "." + tmpFloatStr.substring(1, 3);
                             } else if(tmpFloatStr.length() == 4) {
                                 tmpFloatStr = tmpFloatStr.substring(0, 2) + "." + tmpFloatStr.substring(2, 4);
-                            } else if(tmpFloatStr.length() == 5) {
-                                tmpFloatStr = tmpFloatStr.substring(0, 3) + "." + tmpFloatStr.substring(3, 5);
                             }
 
                             tmp = Float.parseFloat(tmpFloatStr);
+                            barList3.add(new BarEntry((float) i, tmp));
                         }
-                        barList3.add(new BarEntry((float) i, tmp));
                     }
                 }
 
@@ -359,6 +372,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 dataSet2.setColor(78131249, 100);
                 dataSet3.setColor(206211214, 100);
 
+                dataSet.setValueTextColor(Color.WHITE);
+                dataSet2.setValueTextColor(Color.WHITE);
+                dataSet3.setValueTextColor(Color.WHITE);
+
                 dataSetList.add(dataSet);
                 dataSetList.add(dataSet2);
                 dataSetList2.add(dataSet3);
@@ -401,7 +418,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
             // 데이터가 없을 경우 아래 샘플 코드로 챠트 생성
             data = "&001000000000~001000000000000/" +
                     "&002000000000~002128750000000/" +
-                    "&003028700000~003128700000000/" +
+                    "&003028700000~003128700000012/" +
                     "&004028700000~004128700000000/" +
                     "&005028700000~005128700000000/" +
                     "&006028750000~006128700000000/" +
@@ -410,7 +427,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                     "&009028750000~009028700000000/" +
                     "&010028700000~010128650000045/" +
                     "&011028800000~011128650000000/" +
-                    "&012028700000~012128700000055/" +
+                    "&012028700000~012128700000057/" +
                     "&013000000000~013128700000000/" +
                     "&014000000000~014128700000060/";
 
@@ -440,7 +457,28 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                         }
 
                         Log.e("mijierror333", tmpArr[i].substring(26, 28));
-                        barList3.add(new BarEntry((float) i, ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100));
+                        if(Integer.parseInt(tmpArr[i].substring(26, 28)) > 40) {
+                            barList3.add(new BarEntry((float) i, 0f));
+                        } else {
+                            Float tmp = ((40 - Float.parseFloat(tmpArr[i].substring(26, 28))) / 20) * 100;
+                            Log.i(TAG, "tmpvalue : " + tmp);
+
+                            String tmpFloatStr = String.valueOf(tmp);
+                            if(tmpFloatStr.contains(".0")) {
+                                tmpFloatStr = tmpFloatStr.substring(0, tmpFloatStr.indexOf("."));
+                                Log.i(TAG, "tmpFloatStrvalue : " + tmpFloatStr);
+                            }
+                            if(tmpFloatStr.length() == 2) {
+                                tmpFloatStr = tmpFloatStr + ".00";
+                            } else if(tmpFloatStr.length() == 3) {
+                                tmpFloatStr = tmpFloatStr.substring(0, 1) + "." + tmpFloatStr.substring(1, 3);
+                            } else if(tmpFloatStr.length() == 4) {
+                                tmpFloatStr = tmpFloatStr.substring(0, 2) + "." + tmpFloatStr.substring(2, 4);
+                            }
+
+                            tmp = Float.parseFloat(tmpFloatStr);
+                            barList3.add(new BarEntry((float) i, tmp));
+                        }
                     }
 
                     if(null != tmpList1 && 0 < tmpList1.size()) {
@@ -498,6 +536,10 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                     BarDataSet dataSet = new BarDataSet(barList1, "발전량");
                     BarDataSet dataSet2 = new BarDataSet(barList2, "사용량");
                     BarDataSet dataSet3 = new BarDataSet(barList3, "배터리성능");
+
+                    dataSet.setValueTextColor(Color.WHITE);
+                    dataSet2.setValueTextColor(Color.WHITE);
+                    dataSet3.setValueTextColor(Color.WHITE);
 
                     ArrayList<BarDataSet> dataSetList = new ArrayList<BarDataSet>();
                     ArrayList<BarDataSet> dataSetList2 = new ArrayList<BarDataSet>();

@@ -49,28 +49,53 @@ public class BluetoothLeService extends Service {
     public int mConnectionState = 0;
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @SuppressLint("MissingPermission")
-        public void onConnectionStateChange(BluetoothGatt bluetoothGatt, int i, int i2) {
-            if (i2 == 2) {
+        public void onConnectionStateChange(BluetoothGatt bluetoothGatt, int status, int newState) {
+            super.onConnectionStateChange(bluetoothGatt, status, newState);
+            /**
+            if (newState == 2) {
                 int unused = BluetoothLeService.this.mConnectionState = 2;
                 BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_CONNECTED);
                 Log.i(BluetoothLeService.TAG, "Connected to GATT server.");
                 String access$200 = BluetoothLeService.TAG;
                 Log.i(access$200, "Attempting to start service discovery:" + BluetoothLeService.this.mBluetoothGatt.discoverServices());
-            } else if (i2 == 0) {
+            } else if (newState == 0) {
                 int unused2 = BluetoothLeService.this.mConnectionState = 0;
                 Log.i(BluetoothLeService.TAG, "Disconnected from GATT server.");
                 BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_DISCONNECTED);
             }
+             **/
+            if(status == BluetoothGatt.GATT_FAILURE) {
+                BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_DISCONNECTED);
+                bluetoothGatt.disconnect();
+                bluetoothGatt.close();
+                Log.i(TAG, "gatt failure");
+                return;
+            }
+
+            if(status == 133) {
+                BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_DISCONNECTED);
+                bluetoothGatt.disconnect();
+                bluetoothGatt.close();
+                Log.e(TAG, "Error : Unknown Error");
+                return;
+            }
+
+            if(newState == BluetoothGatt.STATE_CONNECTED && status == BluetoothGatt.GATT_SUCCESS) {
+                BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_CONNECTED);
+                bluetoothGatt.discoverServices();
+                Log.i(TAG, "gatt success and connected");
+            }
         }
 
-        public void onServicesDiscovered(BluetoothGatt bluetoothGatt, int i) {
-            if (i == 0) {
+        public void onServicesDiscovered(BluetoothGatt bluetoothGatt, int status) {
+            super.onServicesDiscovered(bluetoothGatt, status);
+            if (status == 0) {
                 BluetoothLeService.this.broadcastUpdate(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);
                 Log.w(BluetoothLeService.TAG, "Discovered ===========================");
                 return;
             }
             String access$200 = BluetoothLeService.TAG;
-            Log.w(access$200, "onServicesDiscovered received: " + i);
+            Log.w(access$200, "onServicesDiscovered received: " + status);
         }
 
         public void onCharacteristicRead(BluetoothGatt bluetoothGatt, BluetoothGattCharacteristic bluetoothGattCharacteristic, int i) {
@@ -268,7 +293,7 @@ public class BluetoothLeService extends Service {
                 Log.w(TAG, "Device not found.  Unable to connect.");
                 return false;
             }
-            this.mBluetoothGatt = remoteDevice.connectGatt(this, false, this.mGattCallback);
+            this.mBluetoothGatt = remoteDevice.connectGatt(this, true, this.mGattCallback);
             Log.d(TAG, "Trying to create a new connection.");
             this.mBluetoothDeviceAddress = str;
             this.mConnectionState = 1;

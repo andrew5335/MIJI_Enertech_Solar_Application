@@ -181,7 +181,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="W"
+                        android:text="Solar W"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         android:textColor="#ffffff"/>
@@ -303,7 +303,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="각 Cell 전압 및 온도"
+                        android:text="배터리 상세전압"
                         android:textColor="#ffffff"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -471,7 +471,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_righttop"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Temprature"
+                        android:text="SoB"
                         android:textColor="#ffffff"
                         android:textSize="12dp"
                         android:textStyle="bold" />

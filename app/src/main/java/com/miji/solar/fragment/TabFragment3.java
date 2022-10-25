@@ -143,7 +143,10 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void setData(String data) {
-        //dataList = new LinkedList<String>();
+        if(null != dataList && 0 < dataList.size()) {
+            dataList = new LinkedList<String>();
+            sumData.setText("");
+        }
         //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
 
@@ -154,37 +157,6 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
             }
             dataList.add(data);
 
-            /**
-            String[] tmpArr = data.split("/");
-
-            StringBuilder sb = new StringBuilder();
-
-            if(null != tmpArr && 0 < tmpArr.length) {
-                for(int i=0; i < tmpArr.length; i++) {
-                    sb.append(i + 1 + "   ");
-                    sb.append(tmpArr[i]);
-                    sb.append("\r\n");
-                }
-
-                data = sb.toString();
-            }
-
-            dataSave = data;
-
-            String tmpData = "";
-            tmpData = sumData.getText().toString();
-
-            sb.append("");
-            sb.append(tmpData);
-            sb.append("\r\n");
-            sb.append(data);
-
-            data = sb.toString();
-
-            sumData.setText(data);
-            sumData.setMovementMethod(new ScrollingMovementMethod());
-            sumData.setTextColor(Color.WHITE);
-             **/
             Log.e(TAG, "receive tag3 data : " + data);
 
             if(null != sumData.getText().toString() && !"".equals(sumData.getText().toString()) && 0 < sumData.getText().toString().length()) {
@@ -239,20 +211,6 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
     public void displayData(LinkedList<String> dataList) {
         if(null != dataList && 0 < dataList.size()) {
-            /**
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i < dataList.size(); i++) {
-                Log.e(TAG, "data message : " + dataList.get(i));
-                Log.e(TAG, "data length : " + dataList.get(i).length());
-                sb.append("");
-                if(dataList.get(i).length() > 12) {
-                    sb.append(dataList.get(i).substring(0, 12));
-                } else {
-                    sb.append(dataList.get(i));
-                }
-                sb.append("\r\n");
-            }
-             **/
 
             StringBuilder sb = new StringBuilder();
             for(int i=0; i < dataList.size()-1; i++) {
@@ -308,6 +266,7 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
                 //mijiMain.sendData2(requestData);
                 mijiMain.sendData2(sendRefresh);
+                //this.setData("");
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                 String now = sdf.format(date);

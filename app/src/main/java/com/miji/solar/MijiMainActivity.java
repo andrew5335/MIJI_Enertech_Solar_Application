@@ -1,5 +1,6 @@
 package com.miji.solar;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -182,10 +183,16 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
         mDeviceArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_device);
 
         bluetooth.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
+                Log.i(TAG, "constatus : " + mConnected);
                 if(mConnected) {
                     mBluetoothLeService.disconnect();
+                    //mBluetoothLeService.mBluetoothGatt.disconnect();
+                    mConnected = false;
+                    bluetooth.setImageResource(R.mipmap.bluetooth_off);
+                    //mBluetoothLeService.mBluetoothGatt.close();
                 } else {
                     scanDevices();
                 }
@@ -230,6 +237,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                 for(BleDevice device : deviceList) {
                     if(item.contains(device.address)) {
                         mBluetoothLeService.connect(device.address);
+
                         mDeviceListDialog.cancel();
                     }
                 }
@@ -507,44 +515,7 @@ public class MijiMainActivity extends AppCompatActivity implements TabLayout.OnT
                         Log.e(TAG, "receive message1 : " + str);
                         //String[] split = str.split("/");
                         int i = 0;
-                        /**
-                        while (split.length > 0) {
-                            try {
-                                StringBuilder sb = new StringBuilder();
-                                MijiMainActivity mijiMainActivity = MijiMainActivity.this;
-                                sb.append(mijiMainActivity.ddd);
-                                sb.append(split[i]);
-                                mijiMainActivity.ddd = sb.toString();
-                                StringBuilder sb2 = new StringBuilder();
-                                MijiMainActivity mijiMainActivity2 = MijiMainActivity.this;
-                                sb2.append(mijiMainActivity2.ddd);
-                                sb2.append("\r\n");
-                                mijiMainActivity2.ddd = sb2.toString();
 
-                                Log.e(TAG, "receive message : " + MijiMainActivity.this.ddd);
-                                Bundle bundle = new Bundle(1);
-                                bundle.putString("data3", MijiMainActivity.this.ddd);
-
-                                tab3Frag.setArguments(bundle);
-                                tab4Frag.setArguments(bundle);
-
-                                if(tab3Frag.getView() != null) {
-                                    tab3Frag.setData(MijiMainActivity.this.ddd);
-                                } else {
-                                    fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
-                                }
-
-                                if(tab4Frag.getView() != null) {
-                                    tab4Frag.setChart(MijiMainActivity.this.ddd);
-                                } else {
-                                    fragmentManager.beginTransaction().detach(tab4Frag).attach(tab4Frag).replace(R.id.frag4, tab4Frag).commit();
-                                }
-
-                                i++;
-                            } catch (Exception unused3) {
-                            }
-                        }
-                         **/
                         if(null != MijiMainActivity.this.ddd && !"".equals(MijiMainActivity.this.ddd) && 0 < MijiMainActivity.this.ddd.length()) {
                             Log.e(TAG, "receive message : " + MijiMainActivity.this.ddd);
                             Bundle bundle = new Bundle(1);
