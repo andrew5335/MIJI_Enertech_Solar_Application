@@ -471,7 +471,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/box_border_righttop"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="SoB"
+                        android:text="Temprature"
                         android:textColor="#ffffff"
                         android:textSize="12dp"
                         android:textStyle="bold" />

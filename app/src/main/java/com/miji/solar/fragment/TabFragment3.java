@@ -144,8 +144,8 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
 
     public void setData(String data) {
         if(null != dataList && 0 < dataList.size()) {
-            dataList = new LinkedList<String>();
-            sumData.setText("");
+            //dataList = new LinkedList<String>();
+            //sumData.setText("");
         }
         //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
