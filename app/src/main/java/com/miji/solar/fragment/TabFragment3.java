@@ -150,20 +150,59 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
         //Toast.makeText(getContext(), "tab3 data2 : " + data, Toast.LENGTH_LONG).show();
         if(null != data && !"".equals(data) && 0 < data.length()) {
 
-            if(data.startsWith("&")) {
-                data = data.replaceAll("&", "");
-            } else if(data.startsWith("~")) {
-                data = data.replaceAll("~", "");
-            }
-            dataList.add(data);
+            if("1".equals(data)) {
+                data = "&001027520010~001128700031020/" +
+                        "&002027520010~002128650031020/" +
+                        "&003027260010~003128260031020/" +
+                        "&004027520010~004128650031020/" +
+                        "&005027470010~005128750031020/" +
+                        "&001027520010~001128800031020/" +
+                        "&001027470010~001128400031025/" +
+                        "&001026980010~001127570031025/" +
+                        "&001026390010~001128500031025/" +
+                        "&001027470010~001128850031025/";
 
-            Log.e(TAG, "receive tag3 data : " + data);
+                if(null != data && !"".equals(data) && 0 < data.length()) {
+                    if(data.startsWith("&")) {
+                        data = data.replaceAll("&", "");
+                    } else if(data.startsWith("~")) {
+                        data = data.replaceAll("~", "");
+                    }
 
-            if(null != sumData.getText().toString() && !"".equals(sumData.getText().toString()) && 0 < sumData.getText().toString().length()) {
+                    String[] tmpArr = data.split("/");
+                    StringBuilder sb = new StringBuilder();
 
+                    if (null != tmpArr && 0 < tmpArr.length) {
+                        for (int i = 0; i < tmpArr.length; i++) {
+                            sb.append(i + 1 + "   ");
+                            sb.append(tmpArr[i]);
+                            sb.append("\r\n");
+                        }
+                    }
+                    data = sb.toString();
+                    dataSave = data;
+
+                    sumData.setText("");
+                    sumData.setText(data);
+                    sumData.setMovementMethod(new ScrollingMovementMethod());
+                    sumData.setTextColor(Color.WHITE);
+                }
             } else {
-                if (data.startsWith("*")) {
-                    displayData(dataList);
+                if (data.startsWith("&")) {
+                    data = data.replaceAll("&", "");
+                } else if (data.startsWith("~")) {
+                    data = data.replaceAll("~", "");
+                }
+                dataList.add(data);
+
+                Log.e(TAG, "receive tag3 data : " + data);
+
+                if (null != sumData.getText().toString() && !"".equals(sumData.getText().toString()) && 0 < sumData.getText().toString().length()) {
+
+                } else {
+                    if (data.startsWith("*")) {
+                        displayData(dataList);
+                    }
                 }
             }
         } else {
@@ -179,7 +218,19 @@ public class TabFragment3 extends Fragment implements View.OnClickListener {
                     "&008026980010~001127570031039/" +
                     "&009026390010~001128500031042/" +
                     "&010027470010~001128850031043/";
+
+            data = "&001027520010~001128700031020/" +
+                    "&002027520010~002128650031020/" +
+                    "&003027260010~003128260031020/" +
+                    "&004027520010~004128650031020/" +
+                    "&005027470010~005128750031020/" +
+                    "&001027520010~001128800031020/" +
+                    "&001027470010~001128400031025/" +
+                    "&001026980010~001127570031025/" +
+                    "&001026390010~001128500031025/" +
+                    "&001027470010~001128850031025/";
              **/
+
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 if(data.startsWith("&")) {

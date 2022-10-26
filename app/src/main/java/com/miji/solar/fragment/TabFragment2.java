@@ -225,8 +225,11 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                         solarAmp.setText("00.0" + reta2);
                     }
 
+                    solarWatt.setText(reta3);
+                    /**
                     if(reta3.length() == 5) {
                         solarWatt.setText(reta3.substring(0, 3) + "." + reta3.substring(3, reta3.length()));
+                        solarWatt.setText(reta3);
                     } else if(reta3.length() == 4) {
                         if(reta2.length() == 4) {
                             solarWatt.setText(reta3.substring(0, 3) + "." + reta3.substring(3, reta3.length()));
@@ -244,6 +247,7 @@ public class TabFragment2 extends Fragment implements View.OnClickListener {
                     } else if(reta3.length() == 1) {
                         solarWatt.setText("00.0" + reta3);
                     }
+                     **/
                 }
             }
         }

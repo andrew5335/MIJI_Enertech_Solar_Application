@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -188,8 +189,8 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.refresh:
                 //((MijiMainActivity) getActivity()).sendData2(sendRefresh);
-                //mijiMain.sendData2(requestData);
-                mijiMain.sendData2(sendRefresh);
+                mijiMain.sendData2(requestData);
+                //mijiMain.sendData2(sendRefresh);
                 //this.displayChart("");
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
@@ -199,7 +200,31 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.load_data:
-                mijiMain.sendData2(requestData);
+                //mijiMain.sendData2(requestData);
+                this.displayChart("");
+                String data = "&001027520010~001128700031020" +
+                        "&002027520010~002128650031020/" +
+                        "&003027260010~003128260031020/" +
+                        "&004027520010~004128650031020/" +
+                        "&005027470010~005128750031020/" +
+                        "&001027520010~001128800031020/" +
+                        "&001027470010~001128400031025/" +
+                        "&001026980010~001127570031025/" +
+                        "&001026390010~001128500031025/" +
+                        "&001027470010~001128850031025/";
+
+                TabFragment3 tab3Frag;
+                tab3Frag = new TabFragment3();
+                Bundle bundle = new Bundle(1);
+                bundle.putString("data3", "1");
+                tab3Frag.setArguments(bundle);
+
+                if(tab3Frag.getView() != null) {
+                    tab3Frag.setData(data);
+                } else {
+                    FragmentManager fragmentManager = mijiMain.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().detach(tab3Frag).attach(tab3Frag).replace(R.id.frag3, tab3Frag).commit();
+                }
                 Log.e(TAG, "data request");
                 break;
         }
@@ -426,6 +451,7 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
 
         } else {
             // 데이터가 없을 경우 아래 샘플 코드로 챠트 생성
+            /**
             data = "&001000000000~001000000000000/" +
                     "&002000000000~002128750000000/" +
                     "&003028700000~003128700000012/" +
@@ -440,6 +466,18 @@ public class TabFragment4 extends Fragment implements View.OnClickListener {
                     "&012028700000~012128700000057/" +
                     "&013000000000~013128700000000/" +
                     "&014000000000~014128700000060/";
+**/
+            data = "&001027520010~001128700031020/" +
+                    "&002027520010~002128650031020/" +
+                    "&003027260010~003128260031020/" +
+                    "&004027520010~004128650031020/" +
+                    "&005027470010~005128750031020/" +
+                    "&001027520010~001128800031020/" +
+                    "&001027470010~001128400031025/" +
+                    "&001026980010~001127570031025/" +
+                    "&001026390010~001128500031025/" +
+                    "&001027470010~001128850031025/";
+
 
             if(null != data && !"".equals(data) && 0 < data.length()) {
                 data = data.replaceAll(System.getProperty("line.separator"), "");
